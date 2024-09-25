@@ -1,0 +1,49 @@
+<h1>ユーザー一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>生年月日</th>
+      <th>年齢</th> <!-- 年齢の列を追加 -->
+      <th>編集</th>
+      <th>削除</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.birthday.strftime("%Y-%m-%d") if user.birthday %></td> <!-- 生年月日表示 -->
+        <td>
+          <% if user.age_with_months %>
+            <%= user.age_with_months[0] %>歳<%= user.age_with_months[1] %>か月 <!-- 年齢と月数を表示 -->
+          <% else %>
+            不明
+          <% end %>
+        </td>
+        <td><%= link_to '編集', edit_user_path(user) %></td>
+        <td>
+          <%= button_to '削除', user_path(user), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>新規ユーザー登録</h2>
+
+<%= form_with model: @user, local: true, url: users_path do |form| %>
+  <div>
+    <%= form.label :name, '名前' %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :birthday, '生年月日' %>
+    <%= form.date_field :birthday %>
+  </div>
+
+  <%= form.submit 'ユーザー作成' %>
+<% end %>
+

@@ -1,0 +1,17 @@
+<h1>ユーザー編集</h1>
+
+<%= form_with model: @user, local: true do |form| %>
+  <div>
+    <%= form.label :name, '名前' %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :birthday, '生年月日' %>
+    <%= form.date_field :birthday %>
+  </div>
+
+  <%= form.submit '更新' %>
+<% end %>
+
+<%= link_to '戻る', users_path %>

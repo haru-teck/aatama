@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Aatama</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>アプリ名</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <nav>
+    <ul>
+      <li><%= link_to 'ホーム', root_path %></li>
+      <li><%= link_to '体調記録', new_condition_path %></li>
+      <li><%= link_to '設定', users_path %></li> <!-- ユーザー一覧ページへのリンク -->
+      <!-- 他のリンクも追加 -->
+    </ul>
+  </nav>
+
+  <%= yield %> <!-- ページコンテンツがここに挿入される -->
+</body>
 </html>
+

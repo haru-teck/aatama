@@ -1,0 +1,4 @@
+# config/locales/ja.yml
+ja:
+  hello: "こんにちは"
+  # 他の翻訳もここに追加できます

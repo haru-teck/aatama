@@ -1,27 +1,38 @@
-<h1>User Profile</h1>
+<h1><%= @user.name %> さん</h1>
 
 <% if @user %>
-  <p><strong>Name:</strong> <%= @user.name %></p>
-  <p><strong>Birthday:</strong> <%= @user.birthday.strftime("%Y-%m-%d") %></p>
-  <p><strong>Age:</strong> <%= @user.age %> years old</p>
-
-  <h2>Conditions</h2>
-  <% if @conditions.any? %>
-    <ul>
-      <% @conditions.each do |condition| %>
-        <li>
-          <strong>Date:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
-          <strong>Temperature:</strong> <%= condition.temperature %>°C <br>
-          <strong>Eat:</strong> <%= condition.eat %> <br>
-          <strong>Moisture:</strong> <%= condition.moisture %> <br>
-          <strong>Puke:</strong> <%= condition.puke %> <br>
-          <strong>Memo:</strong> <%= condition.memo %>
-        </li>
-      <% end %>
-    </ul>
+  <p><strong>生年月日:</strong> <%= @user.birthday.strftime("%Y-%m-%d") %></p>
+  <% if @user.birthday %>
+    <% age, months = @user.age_with_months %>
+    <p><strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月</p>
   <% else %>
-    <p>No conditions found.</p>
+    <p>No birthday available.</p>
   <% end %>
 <% else %>
   <p>No user found.</p>
+<% end %>
+
+<h2>体調</h2>
+<% if @conditions.any? %>
+  <ul>
+    <% @conditions.each do |condition| %>
+      <li>
+        <strong>記録日時:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
+        <strong>体温:</strong> <%= condition.temperature %>°C <br>
+        <strong>食欲:</strong> <%= condition.eat %> <br>
+        <strong>水分:</strong> <%= condition.moisture %> <br>
+        <strong>嘔吐:</strong> <%= condition.puke %> <br>
+        <strong>メモ:</strong> <%= condition.memo %> <br>
+        
+        <% if condition.images.attached? %> <!-- 画像が添付されているか確認 -->
+          <strong>画像:</strong> <br>
+          <% condition.images.each do |image| %> <!-- 添付されたすべての画像を表示 -->
+            <%= image_tag image, size: "100x100" %> <!-- 画像を表示（サイズ調整） -->
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No conditions found.</p>
 <% end %>
