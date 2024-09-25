@@ -1,0 +1,21 @@
+<h1>体調管理一覧</h1>
+
+<ul>
+  <% @conditions.each do |condition| %>
+    <li>
+      ID: <%= condition.id %>, 
+      日付: <%= condition.input_day %>, 
+      温度: <%= condition.temperature %>℃, 
+      ユーザーID: <%= condition.user_id %>, 
+      食事: <%= condition.eat || '未入力' %>, 
+      湿度: <%= condition.moisture || '未入力' %>, 
+      吐き気: <%= condition.puke || '未入力' %>, 
+      メモ: <%= condition.memo || '未入力' %>
+      <%= link_to '編集', edit_condition_path(condition) %>
+      <%= link_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+    </li>
+  <% end %>
+</ul>
+
+
+

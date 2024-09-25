@@ -68,23 +68,23 @@
   <ul>
     <% @conditions.each do |condition| %>
       <li>
-        <strong>記録日時:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
-        <strong>体温:</strong> <%= condition.temperature %>°C <br>
-        <strong>食欲:</strong> <%= condition.eat %> <br>
-        <strong>水分:</strong> <%= condition.moisture %> <br>
-        <strong>嘔吐:</strong> <%= condition.puke %> <br>
-        <strong>メモ:</strong> <%= condition.memo %> <br>
+  <strong>記録日時:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
+  <strong>体温:</strong> <%= condition.temperature %>°C <br>
+  <strong>食欲:</strong> <%= condition.eat || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
+  <strong>水分:</strong> <%= condition.moisture || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
+  <strong>嘔吐:</strong> <%= condition.puke || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
+  <strong>メモ:</strong> <%= condition.memo || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
 
-        <% if condition.images.attached? %>
-          <strong>画像:</strong> <br>
-          <% condition.images.each do |image| %>
-            <%= image_tag image, size: "100x100" %>
-          <% end %>
-        <% end %>
+  <% if condition.images.attached? %>
+    <strong>画像:</strong> <br>
+    <% condition.images.each do |image| %>
+      <%= image_tag image, size: "100x100" %>
+    <% end %>
+  <% end %>
 
-        <%= link_to '編集', edit_condition_path(condition) %> |
-        <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' } %>
-      </li>
+  <%= link_to '編集', edit_condition_path(condition) %> <!-- ここで直接リンクを表示 -->
+  <%= link_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+</li>
     <% end %>
   </ul>
 <% else %>

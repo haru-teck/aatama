@@ -1,6 +1,10 @@
 class ConditionsController < ApplicationController
   before_action :set_user, only: [:create, :edit, :update] 
 
+  def index
+    @conditions = Condition.all # すべての体調記録を取得
+  end
+  
   def new
     @condition = Condition.new
   end
@@ -41,8 +45,8 @@ class ConditionsController < ApplicationController
   private
 
   def set_user
-    if params[:condition][:user_id].present? # ここを変更
-      @user = User.find_by(id: params[:condition][:user_id]) # 隠しフィールドから取得
+    if params[:condition].present? && params[:condition][:user_id].present?
+      @user = User.find_by(id: params[:condition][:user_id])
       unless @user
         redirect_to users_path, alert: '指定されたユーザーが見つかりませんでした。'
       end
