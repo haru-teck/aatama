@@ -1,0 +1,47 @@
+<h1>体調記録の編集</h1>
+
+<%= form_with model: @condition, local: true do |form| %>
+  <div>
+    <%= form.label :記録日時 %>
+    <%= form.date_field :input_day, value: @condition.input_day %> <!-- 記録日時 -->
+  </div>
+
+  <div>
+    <%= form.label :体温 %>
+    <%= form.number_field :temperature, value: @condition.temperature %> <!-- 体温 -->
+  </div>
+
+  <div>
+    <%= form.label :食欲 %>
+    <%= form.text_field :eat, value: @condition.eat %> <!-- 食欲 -->
+  </div>
+
+  <div>
+    <%= form.label :水分 %>
+    <%= form.text_field :moisture, value: @condition.moisture %> <!-- 水分 -->
+  </div>
+
+  <div>
+    <%= form.label :嘔吐 %>
+    <%= form.text_field :puke, value: @condition.puke %> <!-- 嘔吐 -->
+  </div>
+
+  <div>
+    <%= form.label :メモ %>
+    <%= form.text_area :memo, value: @condition.memo %> <!-- メモ -->
+  </div>
+
+  <div>
+    <%= form.label :画像 %>
+    <%= form.file_field :images, multiple: true %> <!-- 画像フィールド -->
+    <% if @condition.images.attached? %>
+      <% @condition.images.each do |image| %>
+        <%= image_tag image, size: "100x100" %> <!-- 既存の画像を表示 -->
+      <% end %>
+    <% end %>
+  </div>
+
+  <%= form.submit '更新' %> <!-- 更新ボタン -->
+<% end %>
+
+

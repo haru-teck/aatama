@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   
   def show
     @user = User.first  # 最初のユーザーを取得
@@ -42,8 +42,16 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    if params[:id].present?
+      @user = User.find_by(id: params[:id]) # find_byメソッドを使用
+      unless @user
+        redirect_to users_path, alert: '指定されたユーザーが見つかりませんでした。'
+      end
+    else
+      redirect_to users_path, alert: 'ユーザーIDが指定されていません。'
+    end
   end
+  
 
   def user_params
     params.require(:user).permit(:name, :birthday)

@@ -1,0 +1,92 @@
+<<h1><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
+
+<% if @user %>
+  <p><strong>生年月日:</strong> <%= @user.birthday.strftime("%Y-%m-%d") %></p>
+  <% if @user.birthday %>
+    <% age, months = @user.age_with_months %>
+    <p><strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月</p>
+  <% else %>
+    <p>生年月日がありません。</p>
+  <% end %>
+<% else %>
+  <p>ユーザーが見つかりません。</p>
+<% end %>
+
+<h2>体調</h2>
+
+<!-- 体調記録の新規入力フォーム -->
+<h3>新しい体調記録を入力</h3>
+<%= form_with model: Condition.new(user: @user), url: conditions_path, local: true do |form| %>
+  <%= form.hidden_field :user_id, value: @user.id %> <!-- ユーザーIDを隠しフィールドとして追加 -->
+
+  <div>
+    <%= form.label :input_day, '記録日時' %>
+    <%= form.date_field :input_day %>
+  </div>
+
+  <div>
+    <%= form.label :temperature, '体温' %>
+    <%= form.text_field :temperature %>
+  </div>
+
+  <div>
+    <%= form.label :eat, '食欲' %>
+    <%= form.text_field :eat %>
+  </div>
+
+  <div>
+    <%= form.label :moisture, '水分' %>
+    <%= form.text_field :moisture %>
+  </div>
+
+  <div>
+    <%= form.label :puke, '嘔吐' %>
+    <%= form.text_field :puke %>
+  </div>
+
+  <div>
+    <%= form.label :memo, 'メモ' %>
+    <%= form.text_area :memo %>
+  </div>
+
+  <div>
+    <%= form.label :images, '画像' %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
+  <% if flash[:alert] %> <!-- エラーメッセージを表示するためのスペース -->
+    <div style="color: red;">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <%= form.submit '作成' %>
+<% end %>
+
+<!-- 体調記録の表示 -->
+<% if @conditions.any? %>
+  <ul>
+    <% @conditions.each do |condition| %>
+      <li>
+        <strong>記録日時:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
+        <strong>体温:</strong> <%= condition.temperature %>°C <br>
+        <strong>食欲:</strong> <%= condition.eat %> <br>
+        <strong>水分:</strong> <%= condition.moisture %> <br>
+        <strong>嘔吐:</strong> <%= condition.puke %> <br>
+        <strong>メモ:</strong> <%= condition.memo %> <br>
+
+        <% if condition.images.attached? %>
+          <strong>画像:</strong> <br>
+          <% condition.images.each do |image| %>
+            <%= image_tag image, size: "100x100" %>
+          <% end %>
+        <% end %>
+
+        <%= link_to '編集', edit_condition_path(condition) %> |
+        <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>体調記録がありません。</p>
+<% end %>
