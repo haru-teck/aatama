@@ -1,0 +1,27 @@
+<h1>User Profile</h1>
+
+<% if @user %>
+  <p><strong>Name:</strong> <%= @user.name %></p>
+  <p><strong>Birthday:</strong> <%= @user.birthday.strftime("%Y-%m-%d") %></p>
+  <p><strong>Age:</strong> <%= @user.age %> years old</p>
+
+  <h2>Conditions</h2>
+  <% if @conditions.any? %>
+    <ul>
+      <% @conditions.each do |condition| %>
+        <li>
+          <strong>Date:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
+          <strong>Temperature:</strong> <%= condition.temperature %>°C <br>
+          <strong>Eat:</strong> <%= condition.eat %> <br>
+          <strong>Moisture:</strong> <%= condition.moisture %> <br>
+          <strong>Puke:</strong> <%= condition.puke %> <br>
+          <strong>Memo:</strong> <%= condition.memo %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No conditions found.</p>
+  <% end %>
+<% else %>
+  <p>No user found.</p>
+<% end %>
