@@ -12,7 +12,7 @@
       吐き気: <%= condition.puke || '未入力' %>, 
       メモ: <%= condition.memo || '未入力' %>
       <%= link_to '編集', edit_condition_path(condition) %>
-      <%= link_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, form: { data: { turbo: false } } %>
     </li>
   <% end %>
 </ul>

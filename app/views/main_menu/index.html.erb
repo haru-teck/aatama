@@ -1,7 +1,7 @@
 <<h1><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
 
 <% if @user %>
-  <p><strong>生年月日:</strong> <%= @user.birthday.strftime("%Y-%m-%d") %></p>
+  <p><strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y-%m-%d") %></p>
   <% if @user.birthday %>
     <% age, months = @user.age_with_months %>
     <p><strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月</p>
@@ -12,21 +12,57 @@
   <p>ユーザーが見つかりません。</p>
 <% end %>
 
-<h2>体調</h2>
+<h2>体調記録</h2>
+
+<!-- 体調記録の表示 -->
+<% if @conditions.any? %>
+  <table style="width: 100%;">
+    <% @conditions.each do |condition| %>
+      <tr>
+        <td style="width: 80%;">
+          <strong>記録日時:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
+          <strong>体温:</strong> <%= condition.temperature %>°C <br>
+          <strong>食欲:</strong> <%= condition.eat || '記録なし' %> <br>
+          <strong>水分:</strong> <%= condition.moisture || '記録なし' %> <br>
+          <strong>嘔吐:</strong> <%= condition.puke || '記録なし' %> <br>
+          <strong>メモ:</strong> <%= condition.memo || '記録なし' %> <br>
+
+          <% if condition.images.attached? %>
+            <strong>画像:</strong> <br>
+            <p>添付画像数: <%= condition.images.count %></p>
+            <div style="display: flex; flex-wrap: wrap;">
+              <% condition.images.each do |image| %>
+                <%= image_tag image.variant(resize_to_limit: [100, 100]), style: "margin: 5px;" %>
+              <% end %>
+            </div>
+          <% else %>
+            <p>画像が添付されていません。</p>
+          <% end %>
+        </td>
+        <td style="width: 20%; vertical-align: top;">
+          <%= link_to '編集', edit_condition_path(condition), data: { turbo: false }, class: 'btn btn-primary' %><br><br>
+          <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？', turbo: false }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p>体調記録がありません。</p>
+<% end %>
 
 <!-- 体調記録の新規入力フォーム -->
 <h3>新しい体調記録を入力</h3>
-<%= form_with model: Condition.new(user: @user), url: conditions_path, local: true do |form| %>
-  <%= form.hidden_field :user_id, value: @user.id %> <!-- ユーザーIDを隠しフィールドとして追加 -->
-
+<%= form_with model: Condition.new(user: @user), url: conditions_path, local: true, multipart: true do |form| %>
+  <%= form.hidden_field :user_id, value: @user.id %>
+  
   <div>
     <%= form.label :input_day, '記録日時' %>
-    <%= form.date_field :input_day %>
+    <%= form.date_field :input_day, required: true %>
   </div>
 
   <div>
     <%= form.label :temperature, '体温' %>
-    <%= form.text_field :temperature %>
+    <%= form.number_field :temperature, step: 0.1, required: true %>
   </div>
 
   <div>
@@ -50,43 +86,9 @@
   </div>
 
   <div>
-    <%= form.label :images, '画像' %>
-    <%= form.file_field :images, multiple: true %>
+    <%= form.label :images, '画像（複数選択可）' %>
+    <%= form.file_field :images, multiple: true, accept: 'image/*' %>
   </div>
 
-  <% if flash[:alert] %> <!-- エラーメッセージを表示するためのスペース -->
-    <div style="color: red;">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
-
-  <%= form.submit '作成' %>
-<% end %>
-
-<!-- 体調記録の表示 -->
-<% if @conditions.any? %>
-  <ul>
-    <% @conditions.each do |condition| %>
-      <li>
-  <strong>記録日時:</strong> <%= condition.input_day.strftime("%Y-%m-%d") %> <br>
-  <strong>体温:</strong> <%= condition.temperature %>°C <br>
-  <strong>食欲:</strong> <%= condition.eat || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
-  <strong>水分:</strong> <%= condition.moisture || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
-  <strong>嘔吐:</strong> <%= condition.puke || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
-  <strong>メモ:</strong> <%= condition.memo || '記録なし' %> <br> <!-- 記録がない場合は表示 -->
-
-  <% if condition.images.attached? %>
-    <strong>画像:</strong> <br>
-    <% condition.images.each do |image| %>
-      <%= image_tag image, size: "100x100" %>
-    <% end %>
-  <% end %>
-
-  <%= link_to '編集', edit_condition_path(condition) %> <!-- ここで直接リンクを表示 -->
-  <%= link_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-</li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>体調記録がありません。</p>
+  <%= form.submit '作成', class: 'btn btn-success' %>
 <% end %>
