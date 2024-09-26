@@ -5,10 +5,10 @@
 <% if @user %>
   <div class="user-info-container">
     <div class="user-info-block">
-      <p class="user-info large-text">
+      <p class="user-info large-text center-text">
         <strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y年%-m月%-d日") %>
       </p>
-      <p class="user-info large-text">
+      <p class="user-info large-text center-text">
         <% if @user.birthday %>
           <% age, months = @user.age_with_months %>
           <strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月
@@ -58,9 +58,9 @@
                 画像なし
               <% end %>
             </td>
-            <td>
-              <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-primary' %>
-              <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+            <td class="action-buttons">
+              <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-primary btn-sm' %>
+              <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
             </td>
           </tr>
         <% end %>
