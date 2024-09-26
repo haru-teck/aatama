@@ -1,0 +1,64 @@
+.centered-title {
+  text-align: center; /* 中央に配置 */
+  margin: 20px 0; /* 上下にマージンを追加 */
+}
+
+.record-table {
+  width: 100%; /* 表の幅を100%に設定 */
+  margin: 0 auto; /* 中央に配置 */
+  border-collapse: collapse; /* セルの境界を重ねる */
+}
+
+.record-table th, .record-table td {
+  border: 1px solid #ddd; /* セルの境界線 */
+  padding: 8px; /* セル内のパディング */
+}
+
+.record-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* 偶数行の背景色 */
+}
+
+.record-table tr:hover {
+  background-color: #ddd; /* ホバー時の背景色 */
+}
+
+.actions {
+  text-align: center; /* アクションボタンを中央に配置 */
+}
+
+.record-image {
+  display: flex; /* フレックスボックスで画像を横並びにする */
+  margin-top: 10px; /* 上部にマージンを追加 */
+}
+
+.record-image-small {
+  max-width: 50px; /* 画像の最大幅を設定 */
+  max-height: 50px; /* 画像の最大高さを設定 */
+  margin-right: 5px; /* 画像のマージン */
+}
+
+.record-container {
+  margin: 20px 0; /* 上下にマージンを追加 */
+}
+
+.record-item {
+  border: 1px solid #ddd; /* セルの境界線 */
+  border-radius: 5px; /* 角を丸くする */
+  padding: 10px; /* パディング */
+  margin-bottom: 20px; /* 下部にマージンを追加 */
+  display: flex; /* フレックスボックスで横並びにする */
+  align-items: center; /* 縦方向の中央揃え */
+  overflow: hidden; /* はみ出し防止 */
+}
+
+.record-details {
+  flex: 1; /* 記録の詳細部分を広げる */
+  margin-right: 10px; /* 画像との間にマージンを追加 */
+}
+
+.separator {
+  border-left: 1px solid #ccc; /* 左罫線を追加 */
+  height: 100%; /* 高さを100%に */
+  display: inline-block; /* インラインブロックに */
+  margin-right: 10px; /* 罫線の右マージン */
+}
