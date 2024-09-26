@@ -1,15 +1,43 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* 全体のスタイル */
+body {
+  margin: 0;
+  font-family: 'Noto Sans JP', sans-serif; /* 丸ゴシック風のフォントを適用 */
+  background-color: #f0f8ff; /* パステルの水色の背景色 */
+}
+
+/* ナビゲーションバーのスタイル */
+nav {
+  background-color: #dbe9f6; /* ヘッダーの背景色 */
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* タイトルを中央に配置 */
+nav .title {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  flex: 1; /* タイトルを中央に配置するためにスペースを占有 */
+  text-align: center; /* タイトルを中央揃え */
+}
+
+/* リストのスタイル */
+nav ul {
+  list-style-type: none; /* リストのスタイルを削除 */
+  padding: 0;           /* パディングを削除 */
+  display: flex;        /* 横並びにする */
+  margin: 0;           /* マージンを削除 */
+}
+
+nav li {
+  margin-left: 15px;  /* アイコン間のスペース */
+}
+
+.nav-icon {
+  width: 24px; /* アイコンの幅 */
+  height: auto; /* 高さは自動調整 */
+  vertical-align: middle; /* テキストとアイコンを垂直方向に揃える */
+}

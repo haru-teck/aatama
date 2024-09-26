@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>アプリ名</title>
+  <title>おねつ</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body>
   <nav>
+    <div class="title">おねつ</div>
     <ul>
-      <li><%= link_to 'ホーム', root_path %></li>
-      <li><%= link_to 'ユーザー一覧', users_path %></li> <!-- ユーザー一覧ページへのリンク -->
-      <li><%= link_to '設定', users_path %></li> <!-- ユーザー一覧ページへのリンク -->
-      <li><%= link_to '体調管理一覧', conditions_path %></li> <!-- 体調管理一覧ページへのリンク -->
-      <!-- 他のリンクも追加 -->
+      <li><%= link_to image_tag('ho-mubotann.png', alt: 'ホームアイコン', class: 'nav-icon'), root_path %></li>
+      <li><%= link_to image_tag('yu-za-.png', alt: 'ユーザー一覧アイコン', class: 'nav-icon'), users_path %></li>
+      <li><%= link_to image_tag('settei.png', alt: '設定アイコン', class: 'nav-icon'), users_path %></li>
+      <li><%= link_to image_tag('kautte.png', alt: '体調管理一覧アイコン', class: 'nav-icon'), conditions_path %></li>
     </ul>
   </nav>
 
-  <%= yield %> <!-- ページコンテンツがここに挿入される -->
+  <%= yield %>
 </body>
 </html>
+
+
 
