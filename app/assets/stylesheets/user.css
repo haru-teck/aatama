@@ -1,0 +1,44 @@
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th, .user-table td {
+  border: 1px solid #ccc; /* セルの境界線 */
+  padding: 10px; /* 内側の余白 */
+  text-align: left; /* 左揃え */
+}
+
+.user-table th {
+  background-color: #f2f2f2; /* ヘッダーの背景色 */
+}
+
+.user-table tr:nth-child(even) {
+  background-color: #f9f9f9; /* 偶数行の背景色 */
+}
+
+.user-table tr:hover {
+  background-color: #eaeaea; /* ホバー時の背景色 */
+}
+
+
+.nav-icon {
+  width: 30px; /* アイコンの幅 */
+  height: 30px; /* アイコンの高さ */
+}
+
+nav ul {
+  list-style: none; /* リストのスタイルをリセット */
+  padding: 0; /* パディングをリセット */
+  margin: 0; /* マージンをリセット */
+  display: flex; /* 横並びにする */
+}
+
+nav li {
+  margin-right: 15px; /* アイコン間のスペース */
+}
+
+nav li:last-child {
+  margin-right: 0; /* 最後のアイコンのマージンをリセット */
+}

@@ -1,19 +1,18 @@
-<h1 class="centered-title"><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
-
+<h1 class="centered-title user-name"><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
 <% if @user %>
-  <p class="user-info"><strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y-%m-%d") %></p>
-  
+  <p class="user-info large-text center-text"><strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y年%-m月%-d日") %></p>
+
   <% if @user.birthday %>
     <% age, months = @user.age_with_months %>
-    <p class="user-info"><strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月</p>
+    <p class="user-info large-text center-text"><strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月</p>
   <% else %>
-    <p class="user-info">生年月日がありません。</p>
+    <p class="user-info center-text">生年月日がありません。</p>
   <% end %>
 <% else %>
-  <p>ユーザーが見つかりません。</p>
+  <p class="center-text">ユーザーが見つかりません。</p>
 <% end %>
 
-<h2 class="centered-title">体調記録</h2>
+<h2 class="centered-title record-title">体調記録</h2>
 
 <!-- 体調記録の表示 -->
 <% if @conditions.any? %>
@@ -28,30 +27,29 @@
           <strong>嘔吐:</strong> <%= condition.puke || '記録なし' %> <br>
           <strong>メモ:</strong> <%= condition.memo || '記録なし' %> <br>
         </td>
-
         <td style="width: 30%; vertical-align: top; text-align: right; padding: 10px;">
           <% if condition.images.attached? %>
-            <strong>画像:</strong>
             <div class="record-image" style="display: inline-block; margin-right: 10px;">
               <% condition.images.each do |image| %>
                 <%= image_tag image.variant(resize_to_limit: [50, 50]), class: 'record-image-small' %>
               <% end %>
             </div>
           <% else %>
-            <p>画像が添付されていません。</p>
+            <p style="display: inline-block; margin-right: 10px;">画像なし</p> <!-- インラインブロックに変更 -->
           <% end %>
+          
+          <!-- リンクを常に表示 -->
           <div style="display: inline-block; margin-left: 10px;">
             <%= link_to '編集', edit_condition_path(condition), data: { turbo: false }, class: 'btn btn-primary' %>
             <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？', turbo: false }, class: 'btn btn-danger', style: 'margin-left: 10px;' %>
           </div>
         </td>
-      </tr>
+      </tr> <!-- ここでtrを閉じる -->
     <% end %>
   </table>
 <% else %>
   <p>体調記録がありません。</p>
 <% end %>
-
 
 <!-- 体調記録の新規入力フォーム -->
 <h3 class="centered-title">新しい体調記録を入力</h3>

@@ -1,6 +1,22 @@
+.large-text {
+  font-size: 15px; /* 生年月日、年齢用 */
+}
+
+.user-name {
+  font-size: 20px; /* ユーザー名用 */
+}
+
+.center-text {
+  text-align: center; /* テキストを中央揃えにする */
+}
+
 .centered-title {
   text-align: center; /* 中央に配置 */
-  margin: 20px 0; /* 上下にマージンを追加 */
+  margin: 15px 0; /* 上下にマージンを追加 */
+}
+
+.record-title {
+  font-size: 13px; /* 体調記録用 */
 }
 
 .record-table {
