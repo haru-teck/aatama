@@ -1,0 +1,21 @@
+/* conditions.css */
+table {
+  width: 100%;
+  border-collapse: collapse; /* セルの間にスペースができないようにする */
+  margin: 20px 0; /* テーブルの上下にマージンを追加 */
+}
+
+th, td {
+  border: 1px solid #ddd; /* セルのボーダー */
+  padding: 8px; /* セルの内側にパディングを追加 */
+  text-align: left; /* テキストを左揃え */
+}
+
+th {
+  background-color: #4CAF50; /* ヘッダーの背景色 */
+  color: white; /* ヘッダーの文字色 */
+}
+
+tr:hover {
+  background-color: #f1f1f1; /* ホバー時の背景色 */
+}
