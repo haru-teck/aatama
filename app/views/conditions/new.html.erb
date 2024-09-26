@@ -1,0 +1,36 @@
+<!-- 体調記録の新規入力フォーム -->
+<h3 class="centered-title">新しい体調記録を入力</h3>
+<div id="new_condition">
+  <%= form_with model: Condition.new(user: @user), url: conditions_path, local: true, multipart: true do |form| %>
+    <%= form.hidden_field :user_id, value: @user.id %>
+    <div>
+      <%= form.label :input_day, '記録日時' %>
+      <%= form.date_field :input_day, required: true %>
+    </div>
+    <div>
+      <%= form.label :temperature, '体温' %>
+      <%= form.number_field :temperature, step: 0.1, required: true %>
+    </div>
+    <div>
+      <%= form.label :eat, '食欲' %>
+      <%= form.text_field :eat %>
+    </div>
+    <div>
+      <%= form.label :moisture, '水分' %>
+      <%= form.text_field :moisture %>
+    </div>
+    <div>
+      <%= form.label :puke, '嘔吐' %>
+      <%= form.text_field :puke %>
+    </div>
+    <div>
+      <%= form.label :memo, 'メモ' %>
+      <%= form.text_area :memo %>
+    </div>
+    <div>
+      <%= form.label :images, '画像（複数選択可）' %>
+      <%= form.file_field :images, multiple: true, accept: 'image/*' %>
+    </div>
+    <%= form.submit '作成', class: 'btn btn-success' %>
+  <% end %>
+</div>

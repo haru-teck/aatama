@@ -1,16 +1,30 @@
-<h1 class="centered-title user-name"><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
-<% if @user %>
-  <p class="user-info large-text center-text"><strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y年%-m月%-d日") %></p>
+<h1 class="centered-title user-name">
+  <%= @user ? @user.name : 'ユーザーが見つかりません' %> さん
+</h1>
 
-  <% if @user.birthday %>
-    <% age, months = @user.age_with_months %>
-    <p class="user-info large-text center-text"><strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月</p>
-  <% else %>
-    <p class="user-info center-text">生年月日がありません。</p>
-  <% end %>
+<% if @user %>
+  <div class="user-info-container">
+    <p class="user-info large-text center-text">
+      <strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y年%-m月%-d日") %>
+    </p>
+    <p class="user-info large-text center-text">
+      <% if @user.birthday %>
+        <% age, months = @user.age_with_months %>
+        <strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月
+      <% else %>
+        生年月日がありません。
+      <% end %>
+    </p>
+    
+    <!-- 新しいブロックをここに作成 -->
+    <div class="icon-container">
+      <%= link_to image_tag('ennpitu.png', class: 'icon-small'), '#new_condition', class: 'icon-link', title: '新しい体調記録を追加' %>
+    </div>
+  </div>
 <% else %>
   <p class="center-text">ユーザーが見つかりません。</p>
 <% end %>
+
 
 <h2 class="centered-title record-title">体調記録</h2>
 

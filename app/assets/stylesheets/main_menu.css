@@ -78,3 +78,17 @@
   display: inline-block; /* インラインブロックに */
   margin-right: 10px; /* 罫線の右マージン */
 }
+
+.user-info-container {
+  display: flex; /* フレックスボックスを使用して横並びにする */
+  align-items: center; /* アイコンとテキストを中央に揃える */
+}
+
+.icon-container {
+  margin-left: 10px; /* テキストとの間にスペースを追加 */
+}
+
+.icon-small {
+  width: 24px; /* アイコンの幅 */
+  height: 24px; /* アイコンの高さ */
+}

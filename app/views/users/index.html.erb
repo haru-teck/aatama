@@ -14,7 +14,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= user.birthday.strftime("%Y-%m-%d") if user.birthday %></td> <!-- 生年月日表示 -->
+        <td><%= user.birthday.strftime("%Y年%-m月%-d日") if user.birthday %></td> <!-- 生年月日表示 -->
         <td>
           <% if user.age_with_months %>
             <%= user.age_with_months[0] %>歳<%= user.age_with_months[1] %>か月 <!-- 年齢と月数を表示 -->
