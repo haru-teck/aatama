@@ -1,36 +1,61 @@
 <!-- 体調記録の新規入力フォーム -->
-<h3 class="centered-title">新しい体調記録を入力</h3>
-<div id="new_condition">
-  <%= form_with model: Condition.new(user: @user), url: conditions_path, local: true, multipart: true do |form| %>
-    <%= form.hidden_field :user_id, value: @user.id %>
-    <div>
+<div class="form-container">
+  <h2>体調記録の追加</h2>
+  <%= form_with model: @condition, local: true, class: 'condition-form' do |form| %>
+    <%= form.hidden_field :user_id, value: @user&.id %>
+    
+    <div class="form-group">
       <%= form.label :input_day, '記録日時' %>
-      <%= form.date_field :input_day, required: true %>
+      <%= form.datetime_field :input_day, value: Time.current.strftime("%Y-%m-%dT%H:%M"), required: true, class: 'form-control' %>
     </div>
-    <div>
+    
+    <div class="form-group">
       <%= form.label :temperature, '体温' %>
-      <%= form.number_field :temperature, step: 0.1, required: true %>
+      <%= form.text_field :temperature, required: true, placeholder: '36.9', step: 'any', inputmode: 'decimal', class: 'form-control' %>
     </div>
-    <div>
+    
+    <div class="form-group">
       <%= form.label :eat, '食欲' %>
-      <%= form.text_field :eat %>
+      <div class="radio-group">
+        <%= form.radio_button :eat, 'あり', class: 'radio-input' %>
+        <%= form.label :eat_あり, 'あり', class: 'radio-label' %>
+        <%= form.radio_button :eat, 'なし', class: 'radio-input' %>
+        <%= form.label :eat_なし, 'なし', class: 'radio-label' %>
+      </div>
     </div>
-    <div>
+    
+    <div class="form-group">
       <%= form.label :moisture, '水分' %>
-      <%= form.text_field :moisture %>
+      <div class="radio-group">
+        <%= form.radio_button :moisture, 'とれている', class: 'radio-input' %>
+        <%= form.label :moisture_とれている, 'とれている', class: 'radio-label' %>
+        <%= form.radio_button :moisture, 'とれていない', class: 'radio-input' %>
+        <%= form.label :moisture_とれていない, 'とれていない', class: 'radio-label' %>
+      </div>
     </div>
-    <div>
+    
+    <div class="form-group">
       <%= form.label :puke, '嘔吐' %>
-      <%= form.text_field :puke %>
+      <div class="radio-group">
+        <%= form.radio_button :puke, 'あり', class: 'radio-input' %>
+        <%= form.label :puke_あり, 'あり', class: 'radio-label' %>
+        <%= form.radio_button :puke, 'なし', class: 'radio-input' %>
+        <%= form.label :puke_なし, 'なし', class: 'radio-label' %>
+      </div>
     </div>
-    <div>
+    
+    <div class="form-group">
       <%= form.label :memo, 'メモ' %>
-      <%= form.text_area :memo %>
+      <%= form.text_area :memo, class: 'form-control' %>
     </div>
-    <div>
+    
+    <div class="form-group">
       <%= form.label :images, '画像（複数選択可）' %>
-      <%= form.file_field :images, multiple: true, accept: 'image/*' %>
+      <%= form.file_field :images, multiple: true, accept: 'image/*', class: 'form-control' %>
     </div>
-    <%= form.submit '作成', class: 'btn btn-success' %>
+    
+    <%= form.submit '保存', class: 'btn btn-primary' %>
   <% end %>
+
+  <%= link_to '戻る', conditions_path, class: 'btn btn-secondary' %>
 </div>

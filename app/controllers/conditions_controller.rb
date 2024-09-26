@@ -8,19 +8,15 @@ class ConditionsController < ApplicationController
   
   def new
     @condition = Condition.new
+    @user = User.find(params[:user_id]) if params[:user_id]
   end
 
   def create
-    @condition = Condition.new(condition_params)
-    @condition.user = @user # ユーザーを条件に関連付け
+    @user = User.find(condition_params[:user_id])
+    @condition = @user.conditions.new(condition_params)
   
     if @condition.save
-      if params[:condition][:images].present?
-        params[:condition][:images].each do |image|
-          @condition.images.attach(image)
-        end
-      end
-      redirect_to main_menu_path, notice: '体調記録が正常に作成されました。'
+      redirect_to conditions_path, notice: '体調記録が正常に作成されました。'
     else
       render :new
     end
@@ -53,6 +49,6 @@ class ConditionsController < ApplicationController
   end
   
   def condition_params
-    params.require(:condition).permit(:input_day, :temperature, :eat, :moisture, :puke, :memo, images: [])
+    params.require(:condition).permit(:user_id, :input_day, :temperature, :eat, :moisture, :puke, :memo, images: [])
   end
 end  
