@@ -1,18 +1,22 @@
 /* 全体のスタイル */
 body {
   margin: 0;
-  font-family: 'Noto Sans JP', sans-serif; /* 丸ゴシック風のフォントを適用 */
-  background-color: #f0f8ff; /* パステルの水色の背景色 */
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: #f0f8ff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* ナビゲーションバーのスタイル */
 nav {
-  background-color: #dbe9f6; /* ヘッダーの背景色 */
+  background-color: #dbe9f6;
   display: flex;
   align-items: center;
   padding: 10px 20px;
   position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap; /* 小さな画面で折り返しを許可 */
 }
 
 /* タイトルを中央に配置 */
@@ -20,32 +24,28 @@ nav .title {
   font-size: 24px;
   font-weight: bold;
   color: black;
-  flex: 1; /* タイトルを中央に配置するためにスペースを占有 */
-  text-align: center; /* タイトルを中央揃え */
+  flex: 1;
+  text-align: center;
 }
 
 /* リストのスタイル */
 nav ul {
-  list-style-type: none; /* リストのスタイルを削除 */
-  padding: 0;           /* パディングを削除 */
-  display: flex;        /* 横並びにする */
-  margin: 0;           /* マージンを削除 */
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  margin: 0;
+  flex-wrap: wrap; /* 小さな画面で折り返しを許可 */
 }
 
 nav li {
-  margin-left: 15px;  /* アイコン間のスペース */
+  margin-left: 15px;
+  margin-bottom: 5px; /* 折り返し時の余白 */
 }
 
 .nav-icon {
-  width: 24px; /* アイコンの幅 */
-  height: auto; /* 高さは自動調整 */
-  vertical-align: middle; /* テキストとアイコンを垂直方向に揃える */
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  width: 24px;
+  height: auto;
+  vertical-align: middle;
 }
 
 footer {
@@ -58,4 +58,75 @@ footer {
 
 footer p {
   margin: 0;
+}
+
+/* レスポンシブデザインの追加 */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav .title {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  nav ul {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  nav li {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  nav .title {
+    font-size: 20px;
+  }
+
+  .nav-icon {
+    width: 20px;
+  }
+}
+
+/* コンテンツエリアの調整 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* フォームの調整 */
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* ボタンのスタイル */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #357abd;
 }

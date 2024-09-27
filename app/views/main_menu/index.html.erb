@@ -28,9 +28,10 @@
   </div>
 <% end %>
 
-  <h2 class="centered-title record-title"><%= @user.name %>さんの体調記録</h2>
+<h2 class="centered-title record-title"><%= @user.name %>さんの体調記録</h2>
 
-  <% if @conditions.present? %>
+<% if @conditions.present? %>
+  <div class="table-responsive">
     <table class="record-table">
       <thead>
         <tr>
@@ -47,21 +48,22 @@
       <tbody>
         <% @conditions.each do |condition| %>
           <tr>
-            <td><%= condition.input_day.strftime("%Y年%-m月%-d日 %H:%M") %></td>
-            <td><%= condition.temperature %>°C</td>
-            <td><%= condition.eat || '記録なし' %></td>
-            <td><%= condition.moisture || '記録なし' %></td>
-            <td><%= condition.puke || '記録なし' %></td>
-            <td><%= condition.memo || '記録なし' %></td>
-            <td>
-          <% if condition.images.attached? %>
-  <% condition.images.each do |image| %>
-    <%= image_tag url_for(image), size: '50x50', class: 'record-image-small' %>
-  <% end %>
-<% else %>
-  画像なし
-<% end %>
-            <td class="action-buttons">
+            <td data-label="記録日時"><%= condition.input_day.strftime("%Y年%-m月%-d日 %H:%M") %></td>
+            <td data-label="体温"><%= condition.temperature %>°C</td>
+            <td data-label="食欲"><%= condition.eat || '記録なし' %></td>
+            <td data-label="水分"><%= condition.moisture || '記録なし' %></td>
+            <td data-label="嘔吐"><%= condition.puke || '記録なし' %></td>
+            <td data-label="メモ"><%= condition.memo || '記録なし' %></td>
+            <td data-label="画像">
+              <% if condition.images.attached? %>
+                <% condition.images.each do |image| %>
+                  <%= image_tag url_for(image), class: 'record-image-small' %>
+                <% end %>
+              <% else %>
+                画像なし
+              <% end %>
+            </td>
+            <td data-label="操作" class="action-buttons">
               <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-primary btn-sm' %>
               <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
             </td>
@@ -69,6 +71,7 @@
         <% end %>
       </tbody>
     </table>
-  <% else %>
-    <p>体調記録がありません。</p>
-  <% end %>
+  </div>
+<% else %>
+  <p>体調記録がありません。</p>
+<% end %>

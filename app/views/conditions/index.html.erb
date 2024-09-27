@@ -19,21 +19,21 @@
       <tbody>
         <% @conditions.each do |condition| %>
           <tr>
-            <td><%= condition.input_day.strftime("%Y/%m/%d %H:%M") %></td>
-            <td><%= condition.user&.name || '不明' %></td>
-            <td><%= condition.temperature %>℃</td>
-            <td><%= condition.eat || '未入力' %></td>
-            <td><%= condition.moisture || '未入力' %></td>
-            <td><%= condition.puke || '未入力' %></td>
-            <td class="memo-cell"><%= truncate(condition.memo, length: 20) || '未入力' %></td>
-            <td class="image-cell">
+            <td data-label="日付"><%= condition.input_day.strftime("%Y/%m/%d %H:%M") %></td>
+            <td data-label="名前"><%= condition.user&.name || '不明' %></td>
+            <td data-label="体温"><%= condition.temperature %>℃</td>
+            <td data-label="食事"><%= condition.eat || '未入力' %></td>
+            <td data-label="水分"><%= condition.moisture || '未入力' %></td>
+            <td data-label="嘔吐"><%= condition.puke || '未入力' %></td>
+            <td data-label="メモ" class="memo-cell"><%= truncate(condition.memo, length: 20) || '未入力' %></td>
+            <td data-label="画像" class="image-cell">
               <% if condition.images.attached? %>
-              <% condition.images.each do |image| %>
-              <%= image_tag url_for(image.variant(resize_to_limit: [50, 50])), alt: '体調管理の画像', class: 'condition-image' %>
-             <% end %>
-             <% end %>
+                <% condition.images.each do |image| %>
+                  <%= image_tag url_for(image.variant(resize_to_limit: [50, 50])), alt: '体調管理の画像', class: 'condition-image' %>
+                <% end %>
+              <% end %>
             </td>
-            <td class="action-cell">
+            <td data-label="操作" class="action-cell">
               <%= link_to '編集', edit_condition_path(condition), class: 'button button-edit' %>
               <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, form: { data: { turbo: false } }, class: 'button button-delete' %>
             </td>

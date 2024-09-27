@@ -284,3 +284,175 @@ input[type="radio"] {
 .submit-button:hover {
   background-color: #45a049;
 }
+/* 既存のスタイルはそのまま保持し、以下を追加または修正 */
+
+/* 基本的なレスポンシブ設定 */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+/* フォームのレスポンシブ対応 */
+.form-container {
+  max-width: 100%;
+  padding: 15px;
+}
+
+.form-control {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* テーブルのレスポンシブ対応 */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ラジオボタングループのレスポンシブ対応 */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.radio-item {
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+
+/* ボタンのレスポンシブ対応 */
+.button {
+  display: inline-block;
+  width: auto;
+  padding: 8px 15px;
+  margin: 5px;
+  font-size: 14px;
+}
+
+/* 画像プレビューのレスポンシブ対応 */
+.image-preview img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* メディアクエリ */
+@media (max-width: 768px) {
+  .condition-table {
+    font-size: 14px;
+  }
+
+  .condition-table th,
+  .condition-table td {
+    padding: 6px;
+  }
+
+  .button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+  }
+
+  .form-control {
+    font-size: 14px;
+  }
+
+  .submit-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .condition-table {
+    font-size: 12px;
+  }
+
+  .condition-table th,
+  .condition-table td {
+    padding: 4px;
+  }
+
+  .button {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .action-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .action-cell .button {
+    margin: 2px 0;
+  }
+
+  .condition-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+  }
+
+  .form-control {
+    font-size: 12px;
+  }
+
+  .submit-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* スマートフォン向けのテーブルレイアウト変更 */
+@media (max-width: 600px) {
+  .condition-table, .condition-table thead, .condition-table tbody, .condition-table th, .condition-table td, .condition-table tr {
+    display: block;
+  }
+
+  .condition-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .condition-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+  }
+
+  .condition-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    text-align: left;
+  }
+
+  .condition-table td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-label);
+    font-weight: bold;
+  }
+
+  .image-cell, .action-cell {
+    padding-left: 6px;
+  }
+
+  .action-cell {
+    text-align: center;
+  }
+}

@@ -94,3 +94,114 @@
 .action-buttons form {
   display: inline;
 }
+
+/* 既存のスタイルはそのままで、以下を追加または修正 */
+
+.centered-title {
+  text-align: center;
+  margin: 15px 0;
+  word-wrap: break-word; /* 長い単語の折り返し */
+}
+
+.user-name {
+  font-size: 24px;
+  color: #4a90e2;
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.record-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  overflow-x: auto; /* 横スクロールを可能にする */
+}
+
+.record-image-small {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  max-width: 100%; /* 画像が親要素からはみ出さないようにする */
+}
+
+/* レスポンシブデザインのための追加 */
+@media (max-width: 768px) {
+  .user-name {
+    font-size: 20px;
+  }
+
+  .large-text {
+    font-size: 16px;
+  }
+
+  .record-table {
+    font-size: 14px;
+  }
+
+  .record-table th,
+  .record-table td {
+    padding: 10px 5px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons .btn {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .record-image-small {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* スマートフォン向けの追加スタイル */
+@media (max-width: 480px) {
+  .record-table {
+    border-collapse: collapse;
+  }
+
+  .record-table thead {
+    display: none;
+  }
+
+  .record-table, .record-table tbody, .record-table tr, .record-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .record-table tr {
+    margin-bottom: 15px;
+  }
+
+  .record-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .record-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+}

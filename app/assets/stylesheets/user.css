@@ -246,3 +246,102 @@ nav li:last-child {
   vertical-align: middle;
   padding: 15px;
 }
+
+/* 既存のスタイルの後に追加 */
+
+/* 基本的なレスポンシブ設定 */
+.container {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* テーブルのレスポンシブ対応 */
+@media (max-width: 768px) {
+  .user-table, .user-table thead, .user-table tbody, .user-table th, .user-table td, .user-table tr {
+    display: block;
+  }
+  
+  .user-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .user-table tr {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .user-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+  
+  .user-table td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    content: attr(data-label);
+    font-weight: bold;
+  }
+
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .edit-button, .delete-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* フォームのレスポンシブ対応 */
+@media (max-width: 768px) {
+  .form-group input, .form-group select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button-group .btn {
+    width: 100%;
+  }
+}
+
+/* ユーザー情報コンテナのレスポンシブ対応 */
+@media (max-width: 768px) {
+  .user-info-container {
+    flex-direction: column;
+  }
+
+  .user-info-block, .icon-container {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* 画像のレスポンシブ対応 */
+.record-image-small {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ボタンのレスポンシブ対応 */
+@media (max-width: 768px) {
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
