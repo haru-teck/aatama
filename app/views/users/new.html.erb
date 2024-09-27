@@ -4,26 +4,22 @@
   <%= form_with model: @user, local: true, class: 'user-form' do |form| %>
     <div class="form-group">
       <%= form.label :name, '名前' %>
-      <%= form.text_field :name, required: true %>
+      <%= form.text_field :name, required: true, class: 'form-control' %>
     </div>
 
     <div class="form-group">
       <%= form.label :birthday, '生年月日' %>
-      <%= form.date_field :birthday, required: true %>
+      <%= form.date_field :birthday, required: true, class: 'form-control' %>
     </div>
 
     <div class="form-group">
       <%= form.label :gender, '性別' %>
-      <div class="radio-group">
-        <%= form.radio_button :gender, 'male', required: true %>
-        <%= form.label :gender_male, '男性' %>
-        <%= form.radio_button :gender, 'female', required: true %>
-        <%= form.label :gender_female, '女性' %>
-      </div>
+      <%= form.select :gender, [['選択してください', ''], ['男性', 'male'], ['女性', 'female'], ['その他', 'other']], {}, { class: 'form-control', required: true } %>
     </div>
 
-    <%= form.submit 'ユーザー作成', class: 'submit-button' %>
+    <div class="button-group">
+      <%= form.submit 'ユーザー作成', class: 'btn btn-primary' %>
+      <%= link_to 'ユーザー一覧に戻る', users_path, class: 'btn btn-secondary' %>
+    </div>
   <% end %>
-
-  <%= link_to 'ユーザー一覧に戻る', users_path, class: 'back-link' %>
 </div>

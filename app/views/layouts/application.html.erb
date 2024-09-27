@@ -5,10 +5,11 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag 'main_menu', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag 'user', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= stylesheet_link_tag 'conditions', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'settings', media: 'all', 'data-turbolinks-track': 'reload' %>
   
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -19,7 +20,7 @@
     <ul>
       <li><%= link_to image_tag('ho-mubotann.png', alt: 'ホームアイコン', class: 'nav-icon'), root_path %></li>
       <li><%= link_to image_tag('yu-za-.png', alt: 'ユーザー一覧アイコン', class: 'nav-icon'), users_path %></li>
-      <li><%= link_to image_tag('settei.png', alt: '設定アイコン', class: 'nav-icon'), users_path %></li>
+      <li><%= link_to image_tag('settei.png', alt: '設定アイコン', class: 'nav-icon'), settings_path %></li>
       <li><%= link_to image_tag('kautte.png', alt: '体調管理一覧アイコン', class: 'nav-icon'), conditions_path %></li>
     </ul>
   </nav>

@@ -1,9 +1,0 @@
-<h1><%= @user.name %>さんの詳細</h1>
-
-<p><strong>生年月日:</strong> <%= @user.birthday.strftime("%Y-%m-%d") %></p>
-<% age, months = @user.age_with_months %>
-<p><strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月</p>
-
-<!-- その他のユーザー情報を表示 -->
-
-<%= link_to 'メインメニューに戻る', main_menu_index_path %>

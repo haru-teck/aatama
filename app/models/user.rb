@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   validates :name, presence: true
   validates :birthday, presence: true  
-
+  validates :gender, inclusion: { in: ['男性', '女性', 'その他'], allow_nil: true }
   has_many :conditions  
 
   def age_with_months

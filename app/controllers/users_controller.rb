@@ -1,10 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:edit, :update, :destroy]
   
-  def show
-    @user = User.first  # 最初のユーザーを取得
-    @conditions = @user.conditions  # ユーザーに関連する体調情報を取得
-  end
+ 
 
   # ユーザー一覧表示
   def index
@@ -42,16 +39,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def select
+    session[:selected_user_id] = params[:id]
+    redirect_to root_path, notice: 'ユーザーを切り替えました'
+  end
+
   private
 
   def set_user
-    if params[:id].present?
-      @user = User.find_by(id: params[:id]) # find_byメソッドを使用
-      unless @user
-        redirect_to users_path, alert: '指定されたユーザーが見つかりませんでした。'
-      end
-    else
-      redirect_to users_path, alert: 'ユーザーIDが指定されていません。'
+    @user = User.find_by(id: params[:id])
+    unless @user
+      redirect_to users_path, alert: '指定されたユーザーが見つかりませんでした。'
     end
   end
   

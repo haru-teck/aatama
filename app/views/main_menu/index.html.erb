@@ -9,6 +9,9 @@
         <strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y年%-m月%-d日") %>
       </p>
       <p class="user-info large-text center-text">
+        <strong>性別:</strong> <%= @user.gender || '未設定' %>
+      </p>
+      <p class="user-info large-text center-text age-info">
         <% if @user.birthday %>
           <% age, months = @user.age_with_months %>
           <strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月
@@ -23,6 +26,7 @@
       <% end %>
     </div>
   </div>
+<% end %>
 
   <h2 class="centered-title record-title"><%= @user.name %>さんの体調記録</h2>
 
@@ -50,14 +54,13 @@
             <td><%= condition.puke || '記録なし' %></td>
             <td><%= condition.memo || '記録なし' %></td>
             <td>
-              <% if condition.images.attached? %>
-                <% condition.images.each do |image| %>
-                  <%= image_tag image.variant(resize_to_limit: [50, 50]), class: 'record-image-small' %>
-                <% end %>
-              <% else %>
-                画像なし
-              <% end %>
-            </td>
+          <% if condition.images.attached? %>
+  <% condition.images.each do |image| %>
+    <%= image_tag url_for(image), size: '50x50', class: 'record-image-small' %>
+  <% end %>
+<% else %>
+  画像なし
+<% end %>
             <td class="action-buttons">
               <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-primary btn-sm' %>
               <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
@@ -69,4 +72,3 @@
   <% else %>
     <p>体調記録がありません。</p>
   <% end %>
-<% end %>

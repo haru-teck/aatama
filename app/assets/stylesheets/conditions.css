@@ -1,23 +1,21 @@
-/* conditions.css */
-table {
-  width: 100%;
-  border-collapse: collapse; /* セルの間にスペースができないようにする */
-  margin: 20px 0; /* テーブルの上下にマージンを追加 */
+/* 体調記録の追加 */
+.field {
+  margin-bottom: 15px;
 }
 
-th, td {
-  border: 1px solid #ddd; /* セルのボーダー */
-  padding: 8px; /* セルの内側にパディングを追加 */
-  text-align: left; /* テキストを左揃え */
+.radio-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-th {
-  background-color: #4CAF50; /* ヘッダーの背景色 */
-  color: white; /* ヘッダーの文字色 */
+.radio-label {
+  margin-right: 15px;
+  margin-left: 5px;
 }
 
-tr:hover {
-  background-color: #f1f1f1; /* ホバー時の背景色 */
+input[type="radio"] {
+  margin-right: 5px;
 }
 
 /* フォーム全体のスタイル */
@@ -55,15 +53,40 @@ tr:hover {
 
 .radio-group {
   display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.radio-item {
+  display: flex;
   align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.radio-item:hover {
+  background-color: #eeb8b8;
 }
 
 .radio-input {
-  margin-right: 5px;
+  display: none;
 }
 
 .radio-label {
-  margin-right: 15px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.radio-input:checked + .radio-label {
+  font-weight: bold;
+}
+
+.radio-input:checked + .radio-label::before {
+  content: '✓ ';
+  color: #007bff;
 }
 
 .btn {
@@ -96,16 +119,111 @@ tr:hover {
   background-color: #545b62;
 }
 
+
+/* 体調管理一覧 */
 .container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .page-title {
   text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.condition-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+  color: black; /* この行を追加 */
+}
+
+.condition-table th,
+.condition-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  color: black; /* この行を追加 */
+}
+
+.condition-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: black; /* この行を追加 */
+}
+
+.image-cell {
+  width: 60px; /* この行を追加または確認 */
+}
+
+.condition-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+/* ボタンの色は変更しないようにします */
+.button-edit {
+  background-color: #007bff;
+  color: white; /* ボタンのテキストは白のままにします */
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: white; /* ボタンのテキストは白のままにします */
+}
+
+.button-new {
+  background-color: #28a745;
+  color: white; /* ボタンのテキストは白のままにします */
+}
+
+.action-cell {
+  white-space: nowrap;
+}
+
+.button {
+  display: inline-block;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px; /* 角の丸みを増やしました */
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9em;
+  margin: 2px 5px; /* マージンを調整しました */
+}
+
+.button-edit {
+  background-color: #007bff;
+  color: white;
+}
+
+.button-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* フォームのスタイルを調整 */
+.action-cell form {
+  display: inline-block;
+}
+
+/* ボタン間の空白を追加 */
+.action-cell .button-edit {
+  margin-right: 5px;
+}
+
+
+
+.new-condition-link {
+  margin-top: 30px;
+  text-align: center;
 }
 
 .condition-form {

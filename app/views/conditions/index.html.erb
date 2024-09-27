@@ -1,44 +1,49 @@
-<h1>体調管理一覧</h1>
+<div class="container">
+  <h1 class="page-title">体調管理一覧</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>日付</th>
-      <th>名前</th> <!-- ユーザーIDから名前に変更 -->
-      <th>温度</th>
-      <th>食事</th>
-      <th>湿度</th>
-      <th>吐き気</th>
-      <th>メモ</th>
-      <th>画像</th> <!-- 画像の列を追加 -->
-      <th>編集</th>
-      <th>削除</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @conditions.each do |condition| %>
-      <tr>
-        <td><%= condition.input_day %></td>
-        <td><%= condition.user.name if condition.user %></td>
-        <td><%= condition.temperature %>℃</td>
-        <td><%= condition.eat || '未入力' %></td>
-        <td><%= condition.moisture || '未入力' %></td>
-        <td><%= condition.puke || '未入力' %></td>
-        <td><%= condition.memo || '未入力' %></td>
-        <td>
-          <% if condition.images.attached? %>
-            <% condition.images.each do |image| %>
-              <%= image_tag(image, alt: '体調管理の画像', size: '50x50') %> <!-- 画像を表示 -->
-            <% end %>
-          <% else %>
-             <!-- 空欄にするため、何も表示しない -->
-          <% end %>
-        </td>
-        <td><%= link_to '編集', edit_condition_path(condition) %></td>
-        <td>
-          <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, form: { data: { turbo: false } } %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <div class="table-responsive">
+    <table class="condition-table">
+      <thead>
+        <tr>
+          <th>日付</th>
+          <th>名前</th>
+          <th>体温</th>
+          <th>食事</th>
+          <th>水分</th>
+          <th>嘔吐</th>
+          <th>メモ</th>
+          <th>画像</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @conditions.each do |condition| %>
+          <tr>
+            <td><%= condition.input_day.strftime("%Y/%m/%d %H:%M") %></td>
+            <td><%= condition.user&.name || '不明' %></td>
+            <td><%= condition.temperature %>℃</td>
+            <td><%= condition.eat || '未入力' %></td>
+            <td><%= condition.moisture || '未入力' %></td>
+            <td><%= condition.puke || '未入力' %></td>
+            <td class="memo-cell"><%= truncate(condition.memo, length: 20) || '未入力' %></td>
+            <td class="image-cell">
+              <% if condition.images.attached? %>
+              <% condition.images.each do |image| %>
+              <%= image_tag url_for(image.variant(resize_to_limit: [50, 50])), alt: '体調管理の画像', class: 'condition-image' %>
+             <% end %>
+             <% end %>
+            </td>
+            <td class="action-cell">
+              <%= link_to '編集', edit_condition_path(condition), class: 'button button-edit' %>
+              <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, form: { data: { turbo: false } }, class: 'button button-delete' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="new-condition-link">
+    <%= link_to '新規体調記録', new_condition_path, class: 'button button-new' %>
+  </div>
+</div>

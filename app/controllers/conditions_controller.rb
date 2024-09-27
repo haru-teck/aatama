@@ -16,7 +16,7 @@ class ConditionsController < ApplicationController
     @condition = @user.conditions.new(condition_params)
   
     if @condition.save
-      redirect_to conditions_path, notice: '体調記録が正常に作成されました。'
+      redirect_to root_path, notice: '体調記録が正常に作成されました。'
     else
       render :new
     end
