@@ -1,52 +1,31 @@
+/* 基本的なスタイル */
 .centered-title {
   text-align: center;
   margin: 15px 0;
-}
-
-.user-name {
-  font-size: 24px;
-  color: #4a90e2;
+  word-wrap: break-word;
 }
 
 .user-info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  padding: 20px;
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin-bottom: 20px;
 }
 
-.age-info {
-  margin-top: 15px; /* この値は必要に応じて調整してください */
+.user-name {
+  font-size: 20px;
+  color: #4a90e2;
+  margin-bottom: 5px;
 }
 
-.user-info-block {
-  text-align: center;
-  margin-bottom: 15px;
+.user-details {
+  font-size: 14px;
+  color: #666;
 }
 
-.user-info {
-  margin: 10px 0;
-}
-
-.large-text {
-  font-size: 18px;
-}
-
-.center-text {
-  text-align: center;
-}
-
-.icon-container {
-  margin-top: 15px;
-}
-
-.icon-small {
-  width: 50px;
-  height: 50px;
+.table-responsive {
+  overflow-x: auto;
 }
 
 .record-table {
@@ -57,26 +36,14 @@
 
 .record-table th,
 .record-table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
 }
 
 .record-table th {
-  background-color: #4a90e2;
-  color: white;
-}
-
-.record-table tr {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.record-image {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 5px;
+  background-color: #f2f2f2;
+  font-weight: bold;
 }
 
 .record-image-small {
@@ -88,70 +55,86 @@
 .action-buttons {
   display: flex;
   justify-content: center;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.action-buttons form {
-  display: inline;
-}
-
-/* 既存のスタイルはそのままで、以下を追加または修正 */
-
-.centered-title {
+.btn {
+  display: inline-block;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
   text-align: center;
-  margin: 15px 0;
-  word-wrap: break-word; /* 長い単語の折り返し */
 }
 
-.user-name {
-  font-size: 24px;
-  color: #4a90e2;
-}
+/* ボタンの色 */
+.btn-info { background-color: #17a2b8; color: white; }
+.btn-primary { background-color: #007bff; color: white; }
+.btn-danger { background-color: #dc3545; color: white; }
+.btn-success { background-color: #28a745; color: white; }
+.btn-warning { background-color: #ffc107; color: black; }
 
-.user-info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.record-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px;
-  overflow-x: auto; /* 横スクロールを可能にする */
-}
-
-.record-image-small {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  max-width: 100%; /* 画像が親要素からはみ出さないようにする */
-}
-
-/* レスポンシブデザインのための追加 */
+/* スマートフォン向けのスタイル */
 @media (max-width: 768px) {
-  .user-name {
-    font-size: 20px;
+  .record-table, .record-table tbody, .record-table tr {
+    display: block;
+    width: 100%;
   }
 
-  .large-text {
-    font-size: 16px;
+  .record-table thead {
+    display: none;
   }
 
-  .record-table {
-    font-size: 14px;
+  .record-table tr {
+    margin-bottom: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
-  .record-table th,
   .record-table td {
-    padding: 10px 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .record-table td:last-child {
+    border-bottom: none;
+  }
+
+  .record-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+    flex: 1;
+    text-align: left;
+  }
+
+  .record-table td:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .image-cell {
+    justify-content: flex-start;
+  }
+
+  .record-image-small {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
   }
 
   .action-buttons {
@@ -161,47 +144,5 @@
   .action-buttons .btn {
     width: 100%;
     margin-bottom: 5px;
-  }
-
-  .record-image-small {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-/* スマートフォン向けの追加スタイル */
-@media (max-width: 480px) {
-  .record-table {
-    border-collapse: collapse;
-  }
-
-  .record-table thead {
-    display: none;
-  }
-
-  .record-table, .record-table tbody, .record-table tr, .record-table td {
-    display: block;
-    width: 100%;
-  }
-
-  .record-table tr {
-    margin-bottom: 15px;
-  }
-
-  .record-table td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-  }
-
-  .record-table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    text-align: left;
-    font-weight: bold;
   }
 }

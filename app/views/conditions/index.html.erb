@@ -31,6 +31,8 @@
                 <% condition.images.each do |image| %>
                   <%= image_tag url_for(image.variant(resize_to_limit: [50, 50])), alt: '体調管理の画像', class: 'condition-image' %>
                 <% end %>
+              <% else %>
+                画像なし
               <% end %>
             </td>
             <td data-label="操作" class="action-cell">

@@ -1,43 +1,34 @@
-/* 体調記録の追加 */
-.field {
-  margin-bottom: 15px;
+/* 基本設定 */
+* {
+  box-sizing: border-box;
 }
 
-.radio-group {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
-.radio-label {
-  margin-right: 15px;
-  margin-left: 5px;
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
-input[type="radio"] {
-  margin-right: 5px;
-}
-
-/* フォーム全体のスタイル */
+/* フォーム関連 */
 .form-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.condition-form {
-  display: flex;
-  flex-direction: column;
 }
 
 .form-group {
   margin-bottom: 20px;
 }
 
-.form-group label {
+.form-label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
@@ -45,8 +36,8 @@ input[type="radio"] {
 
 .form-control {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ced4da;
+  padding: 10px;
+  border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 16px;
 }
@@ -54,21 +45,7 @@ input[type="radio"] {
 .radio-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-}
-
-.radio-item {
-  display: flex;
-  align-items: center;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.radio-item:hover {
-  background-color: #eeb8b8;
+  gap: 10px;
 }
 
 .radio-input {
@@ -76,62 +53,62 @@ input[type="radio"] {
 }
 
 .radio-label {
-  margin-left: 5px;
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .radio-input:checked + .radio-label {
-  font-weight: bold;
-}
-
-.radio-input:checked + .radio-label::before {
-  content: '✓ ';
-  color: #007bff;
+  background-color: #ef5151;
+  color: white;
 }
 
 .btn {
+  display: inline-block;
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
+  text-align: center;
+  text-decoration: none;
+  margin-right: 10px;
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #ff0044;
   color: white;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
 }
 
 .btn-secondary {
   background-color: #6c757d;
   color: white;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 10px;
 }
 
-.btn-secondary:hover {
-  background-color: #545b62;
+@media (max-width: 600px) {
+  .form-container {
+    padding: 10px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+  }
+
+  .radio-label {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 
-
-/* 体調管理一覧 */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.page-title {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
+/* テーブル関連 */
 .table-responsive {
   overflow-x: auto;
 }
@@ -139,282 +116,158 @@ input[type="radio"] {
 .condition-table {
   width: 100%;
   border-collapse: collapse;
-  white-space: nowrap;
-  color: black; /* この行を追加 */
+  margin-bottom: 20px;
 }
 
 .condition-table th,
 .condition-table td {
+  padding: 10px;
   border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-  color: black; /* この行を追加 */
 }
 
-.condition-table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  color: black; /* この行を追加 */
+/* スマートフォン向けのテーブルスタイル */
+@media (max-width: 600px) {
+  .condition-table, 
+  .condition-table thead, 
+  .condition-table tbody, 
+  .condition-table th, 
+  .condition-table td, 
+  .condition-table tr {
+    display: block;
+  }
+  
+  .condition-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .condition-table tr {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+  }
+  
+  .condition-table td {
+    border: none;
+    position: relative;
+    padding: 10px 10px 10px 50%;
+    text-align: left;
+    min-height: 40px; /* 最小の高さを設定 */
+  }
+
+  .condition-table td:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .condition-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    padding: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    background-color: #e9ecef; /* 項目の背景色 */
+    border-right: 1px solid #ddd; /* 項目と入力内容の区切り線 */
+    height: 100%; /* 親要素の高さいっぱいに */
+    box-sizing: border-box;
+  }
+
+  .image-cell, .action-cell {
+    padding-left: 10px;
+  }
+
+  .action-cell {
+    text-align: center;
+    background-color: #fff;
+  }
+
+  .condition-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 5px;
+  }
+
+  .button {
+    display: inline-block;
+    margin: 5px;
+  }
 }
 
-.image-cell {
-  width: 60px; /* この行を追加または確認 */
+.btn, .button {
+  display: inline-block;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 5px;
+  text-align: center; /* テキストを中央揃えに */
+  line-height: 1.5; /* 行の高さを調整 */
+  vertical-align: middle; /* 垂直方向の配置を中央に */
 }
 
-.condition-image {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 3px;
-}
-
-/* ボタンの色は変更しないようにします */
-.button-edit {
+.btn-primary, .button-edit {
   background-color: #007bff;
-  color: white; /* ボタンのテキストは白のままにします */
+  color: white;
 }
 
-.button-delete {
-  background-color: #dc3545;
-  color: white; /* ボタンのテキストは白のままにします */
+.btn-secondary, .button-delete {
+  background-color: #6c757d;
+  color: white;
 }
 
 .button-new {
   background-color: #28a745;
-  color: white; /* ボタンのテキストは白のままにします */
-}
-
-.action-cell {
-  white-space: nowrap;
-}
-
-.button {
-  display: inline-block;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px; /* 角の丸みを増やしました */
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 0.9em;
-  margin: 2px 5px; /* マージンを調整しました */
-}
-
-.button-edit {
-  background-color: #007bff;
   color: white;
 }
 
-.button-delete {
-  background-color: #dc3545;
-  color: white;
+/* スマートフォン向けの調整 */
+@media (max-width: 600px) {
+  .btn, .button {
+    width: 100%; /* ボタンを画面幅いっぱいに */
+    margin: 5px 0; /* 上下のマージンのみ設定 */
+  }
+
+  .action-cell {
+    padding: 10px; /* セル内のパディングを追加 */
+  }
+
+  .action-cell .button {
+    display: block; /* ボタンを縦に並べる */
+    margin-bottom: 10px; /* ボタン間の間隔を設定 */
+  }
+
+  .action-cell .button:last-child {
+    margin-bottom: 0; /* 最後のボタンの下マージンを削除 */
+  }
 }
 
-/* フォームのスタイルを調整 */
-.action-cell form {
-  display: inline-block;
-}
 
-/* ボタン間の空白を追加 */
-.action-cell .button-edit {
-  margin-right: 5px;
-}
-
-
-
-.new-condition-link {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.condition-form {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group input[type="date"],
-.form-group textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.form-group textarea {
-  height: 100px;
-}
-
-.image-preview {
-  margin-top: 10px;
-}
-
-.image-preview img {
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.form-actions {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.submit-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.submit-button:hover {
-  background-color: #45a049;
-}
-/* 既存のスタイルはそのまま保持し、以下を追加または修正 */
-
-/* 基本的なレスポンシブ設定 */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
-  box-sizing: border-box;
-}
-
-/* フォームのレスポンシブ対応 */
-.form-container {
-  max-width: 100%;
-  padding: 15px;
-}
-
-.form-control {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* テーブルのレスポンシブ対応 */
-.table-responsive {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* ラジオボタングループのレスポンシブ対応 */
-.radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.radio-item {
-  flex: 1 1 auto;
-  min-width: 120px;
-}
-
-/* ボタンのレスポンシブ対応 */
-.button {
-  display: inline-block;
-  width: auto;
-  padding: 8px 15px;
-  margin: 5px;
-  font-size: 14px;
-}
-
-/* 画像プレビューのレスポンシブ対応 */
-.image-preview img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* メディアクエリ */
+/* レスポンシブ対応 */
 @media (max-width: 768px) {
+  .form-container {
+    padding: 10px;
+  }
+
+  .radio-group {
+    flex-direction: column;
+  }
+
   .condition-table {
     font-size: 14px;
   }
 
-  .condition-table th,
-  .condition-table td {
-    padding: 6px;
-  }
-
-  .button {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-
-  .form-group label {
-    font-size: 14px;
-  }
-
-  .form-control {
-    font-size: 14px;
-  }
-
-  .submit-button {
-    padding: 8px 16px;
-    font-size: 14px;
+  .btn, .button {
+    width: 100%;
+    margin: 5px 0;
   }
 }
 
 @media (max-width: 480px) {
-  .condition-table {
-    font-size: 12px;
-  }
-
-  .condition-table th,
-  .condition-table td {
-    padding: 4px;
-  }
-
-  .button {
-    padding: 4px 8px;
-    font-size: 11px;
-  }
-
-  .action-cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .action-cell .button {
-    margin: 2px 0;
-  }
-
-  .condition-image {
-    width: 40px;
-    height: 40px;
-  }
-
-  .form-group label {
-    font-size: 12px;
-  }
-
-  .form-control {
-    font-size: 12px;
-  }
-
-  .submit-button {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-}
-
-/* スマートフォン向けのテーブルレイアウト変更 */
-@media (max-width: 600px) {
   .condition-table, .condition-table thead, .condition-table tbody, .condition-table th, .condition-table td, .condition-table tr {
     display: block;
   }
@@ -427,7 +280,7 @@ input[type="radio"] {
 
   .condition-table tr {
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
   }
 
   .condition-table td {
@@ -438,21 +291,21 @@ input[type="radio"] {
   }
 
   .condition-table td:before {
+    content: attr(data-label);
     position: absolute;
-    top: 6px;
     left: 6px;
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
-    content: attr(data-label);
     font-weight: bold;
   }
 
   .image-cell, .action-cell {
-    padding-left: 6px;
+    padding-left: 10px;
   }
 
-  .action-cell {
-    text-align: center;
+  .condition-image {
+    max-width: 100%;
+    height: auto;
   }
 }
