@@ -31,14 +31,16 @@
 .record-table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 10px;
+  border-spacing: 0;
+  margin-bottom: 20px;
 }
 
 .record-table th,
 .record-table td {
-  padding: 10px;
+  padding: 15px 10px;
   border: 1px solid #ddd;
   text-align: left;
+  vertical-align: middle;
 }
 
 .record-table th {
@@ -52,31 +54,37 @@
   object-fit: cover;
 }
 
-.action-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
-}
-
 .btn {
   display: inline-block;
-  padding: 8px 15px;
+  padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
   font-size: 14px;
   text-align: center;
+  margin: 2px;
+  line-height: 1.5;
 }
 
-/* ボタンの色 */
-.btn-info { background-color: #17a2b8; color: white; }
 .btn-primary { background-color: #007bff; color: white; }
 .btn-danger { background-color: #dc3545; color: white; }
-.btn-success { background-color: #28a745; color: white; }
-.btn-warning { background-color: #ffc107; color: black; }
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.action-buttons .btn,
+.action-buttons form {
+  margin: 0;
+}
+
+.action-buttons form {
+  display: inline-block;
+}
 
 /* スマートフォン向けのスタイル */
 @media (max-width: 768px) {
@@ -92,7 +100,7 @@
   .record-table tr {
     margin-bottom: 15px;
     background-color: #f8f9fa;
-    border: 1px solid #ddd;
+    border: 2px solid #aaa;
     border-radius: 8px;
     overflow: hidden;
   }
@@ -103,7 +111,7 @@
     align-items: center;
     padding: 10px;
     border: none;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #aaa;
   }
 
   .record-table td:last-child {
@@ -118,15 +126,6 @@
     text-align: left;
   }
 
-  .record-table td:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    bottom: 0;
-    border-bottom: 1px solid #eee;
-  }
-
   .image-cell {
     justify-content: flex-start;
   }
@@ -138,11 +137,25 @@
   }
 
   .action-buttons {
-    flex-direction: column;
+    justify-content: flex-start;
   }
 
-  .action-buttons .btn {
-    width: 100%;
-    margin-bottom: 5px;
+  .action-buttons .btn,
+  .action-buttons form {
+    flex: 1 1 auto;
   }
+}
+
+/* アイコンコンテナのスタイル */
+.icon-container {
+  margin-top: 20px;
+}
+
+.icon-small {
+  width: 30px;
+  height: 30px;
+}
+
+.icon-link {
+  text-decoration: none;
 }
