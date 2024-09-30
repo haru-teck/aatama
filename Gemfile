@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+
 ruby "3.2.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
@@ -75,3 +76,13 @@ gem 'pry-rails'
 
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
+
+group :production do
+  gem 'pg'
+end
+
+gem 'pg', group: :production
+gem 'mysql2', '~> 0.5', group: [:development, :test]
+
+# nokogiriの問題を回避するために追加
+gem 'nokogiri', force_ruby_platform: true
