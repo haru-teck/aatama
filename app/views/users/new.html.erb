@@ -1,25 +1,26 @@
 <div class="container">
-  <h1 class="page-title">新規ユーザー登録</h1>
+  <div class="form-container">
+    <h1 class="page-title">新規ユーザー登録</h1>
+    
+    <%= form_with model: @user, local: true, class: 'user-form' do |form| %>
+      <div class="form-group">
+        <%= form.label :name, '名前', class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control', required: true, placeholder: '例：山田太郎' %>
+      </div>
 
-  <%= form_with model: @user, local: true, class: 'user-form' do |form| %>
-    <div class="form-group">
-      <%= form.label :name, '名前' %>
-      <%= form.text_field :name, required: true, class: 'form-control' %>
-    </div>
+      <div class="form-group">
+        <%= form.label :birthday, '生年月日', class: 'form-label' %>
+        <%= form.date_field :birthday, class: 'form-control', required: true %>
+      </div>
 
-    <div class="form-group">
-      <%= form.label :birthday, '生年月日' %>
-      <%= form.date_field :birthday, required: true, class: 'form-control' %>
-    </div>
+      <div class="form-group">
+        <%= form.select :gender, [['選択してください', ''], ['男性', '男性'], ['女性', '女性'], ['その他', 'その他']], {}, { class: 'form-control', required: true } %>
+      </div>
 
-    <div class="form-group">
-      <%= form.label :gender, '性別' %>
-      <%= form.select :gender, [['選択してください', ''], ['男性', 'male'], ['女性', 'female'], ['その他', 'other']], {}, { class: 'form-control', required: true } %>
-    </div>
-
-    <div class="button-group">
-      <%= form.submit 'ユーザー作成', class: 'btn btn-primary' %>
-      <%= link_to 'ユーザー一覧に戻る', users_path, class: 'btn btn-secondary' %>
-    </div>
-  <% end %>
+      <div class="form-actions">
+        <%= form.submit 'ユーザー作成', class: 'btn btn-primary' %>
+        <%= link_to '戻る', users_path, class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+  </div>
 </div>

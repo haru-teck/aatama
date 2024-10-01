@@ -1,8 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]
   
- 
-
   # ユーザー一覧表示
   def index
     @users = User.all

@@ -1,3 +1,8 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
 /* 全体のスタイル */
 body {
   margin: 0;
@@ -17,6 +22,9 @@ nav {
   position: relative;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   flex-wrap: wrap; /* 小さな画面で折り返しを許可 */
+  height: auto; /* 固定の高さを設定 */
+  min-height: 60px; /* 最小の高さを設定 */
+  margin-bottom: 20px;
 }
 
 /* タイトルを中央に配置 */
@@ -53,11 +61,20 @@ footer {
   background-color: #4a90e2;
   color: white;
   text-align: center;
-  padding: 10px 0;
+  padding: 0; /* パディングを削除 */
+  height: auto; /* セミコロンが抜けていたので追加 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px; /* 最小の高さを設定 */
 }
 
 footer p {
-  margin: 0;
+  margin: 0; /* マージンを削除 */
+}
+
+footer p {
+  margin-top: 15px;
 }
 
 /* レスポンシブデザインの追加 */
@@ -129,4 +146,82 @@ textarea {
 
 .btn:hover {
   background-color: #357abd;
+}
+
+/* タブレット向けスタイル */
+@media (max-width: 1024px) {
+  nav {
+    padding: 10px;
+  }
+
+  nav .title {
+    font-size: 22px;
+  }
+
+  .nav-icon {
+    width: 22px;
+  }
+
+  .container {
+    padding: 15px;
+  }
+}
+
+/* スマートフォン向けスタイル */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  nav .title {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  nav ul {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  nav li {
+    margin: 5px 0;
+  }
+
+  .nav-icon {
+    width: 20px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    font-size: 16px; /* モバイルでのズームを防ぐ */
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* 小さなスマートフォン向けスタイル */
+@media (max-width: 480px) {
+  nav .title {
+    font-size: 18px;
+  }
+
+  .nav-icon {
+    width: 18px;
+  }
+
+  .container {
+    padding: 5px;
+  }
 }

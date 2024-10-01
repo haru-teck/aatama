@@ -1,45 +1,38 @@
+<!-- index.html.erb -->
 <div class="container">
-  <div class="header-container">
-    <h1 class="page-title">ユーザー一覧</h1>
-    <%= link_to new_user_path, class: 'add-user-icon', title: '新規ユーザー登録' do %>
-      <%= image_tag 'yu-za-tuika.png', alt: '新規ユーザー追加', class: 'icon-small' %>
+  <h1 class="page-title">ユーザー一覧</h1>
+  
+  <div class="add-user-button-container">
+    <%= link_to new_user_path, class: 'add-user-button', title: '新規ユーザー登録' do %>
+      <%= image_tag 'yu-za-tuikayou.png', alt: '新規ユーザー追加', class: 'icon-small' %>
+      <span>新規ユーザー追加</span>
     <% end %>
   </div>
-  <div class="table-responsive">
-    <table class="user-table">
-      <thead>
-        <tr>
-          <th>名前</th>
-          <th>生年月日</th>
-          <th>年齢</th>
-          <th>性別</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @users.each do |user| %>
-          <tr>
-            <td data-label="名前">
-              <%= button_to user.name, select_user_path(user), method: :post, class: "user-select-button btn btn-user btn-user-#{user.gender == '男性' ? 'male' : (user.gender == '女性' ? 'female' : 'other')}" %>
-            </td>
-            <td data-label="生年月日"><%= user.birthday.strftime("%Y年%-m月%-d日") if user.birthday %></td>
-            <td data-label="年齢">
-              <% if user.age_with_months %>
-                <%= user.age_with_months[0] %>歳<%= user.age_with_months[1] %>か月
-              <% else %>
-                不明
-              <% end %>
-            </td>
-            <td data-label="性別"><%= user.gender || '未設定' %></td>
-            <td data-label="操作" class="action-buttons">
-              <%= link_to '編集', edit_user_path(user), class: 'edit-button' %>
-              <%= button_to '削除', user_path(user), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'delete-button' %>
-            </td>
-          </tr>
+
+  <div class="user-cards">
+    <% @users.each do |user| %>
+      <div class="user-card <%= user_gender_class(user) %>">
+        <%= button_to select_user_path(user), method: :post, class: "user-select-button" do %>
+          <h2 class="user-name"><%= user.name %></h2>
         <% end %>
-      </tbody>
-    </table>
+        <p class="user-info"><strong>生年月日:</strong> <%= user.birthday.strftime("%Y年%-m月%-d日") if user.birthday %></p>
+        <p class="user-info"><strong>年齢:</strong> 
+          <% if user.age_with_months %>
+            <%= user.age_with_months[0] %>歳<%= user.age_with_months[1] %>か月
+          <% else %>
+            不明
+          <% end %>
+        </p>
+        <p class="user-info"><strong>性別:</strong> <%= user.gender || '未設定' %></p>
+        <div class="user-actions">
+          <%= link_to '編集', edit_user_path(user), class: 'edit-button btn btn-secondary' %>
+          <%= button_to '削除', user_path(user), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'delete-button btn btn-danger' %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 
-<%= link_to 'メインメニューに戻る', root_path, class: 'btn btn-secondary' %>
+<div class="back-button-container">
+  <%= link_to 'メインメニューに戻る', root_path, class: 'btn btn-secondary back-button' %>
+</div>
