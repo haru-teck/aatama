@@ -20,7 +20,7 @@ gem 'image_processing', '~> 1.2'
 gem 'nokogiri', force_ruby_platform: true
 
 # 開発環境とテスト環境用のデータベース
-gem 'mysql2', '~> 0.5', group: [:development, :test]
+gem 'mysql2', '~> 0.5'
 
 # 本番環境用のデータベース
 gem 'pg', group: :production
