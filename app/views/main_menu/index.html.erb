@@ -1,65 +1,64 @@
-<h1 class="centered-title user-name"><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
+<div class="content-wrapper">
+  <h1 class="user-name"><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
 
-<% if @user %>
-  <div class="user-info-container">
-    <p class="user-info large-text center-text">
-      <strong>生年月日:</strong> <%= @user.birthday&.strftime("%Y年%-m月%-d日") %>
-    </p>
-    <p class="user-info large-text center-text">
-      <% if @user.birthday %>
-        <% age, months = @user.age_with_months %>
-        <strong>年齢:</strong> <%= age %> 歳 <%= months %> ヶ月
-      <% else %>
-        生年月日がありません。
-      <% end %>
-    </p>
-    
-    <div class="icon-container">
-      <%= link_to image_tag('ennpitu.png', class: 'icon-small'), '#new_condition', class: 'icon-link', title: '新しい体調記録を追加' %>
+  <% if @user %>
+    <div class="user-info-container">
+      <!-- ユーザー情報の表示（既存のコード） -->
     </div>
-  </div>
 
-  <div class="table-responsive">
-    <table class="record-table">
-      <thead>
-        <tr>
-          <th>日付</th>
-          <th>体温</th>
-          <th>食欲</th>
-          <th>水分</th>
-          <th>嘔吐</th>
-          <th>メモ</th>
-          <th>画像</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @conditions.each do |condition| %>
-          <tr>
-            <td data-label="日付"><%= condition.input_day.strftime("%Y/%m/%d %H:%M") %></td>
-            <td data-label="体温"><%= condition.temperature %>℃</td>
-            <td data-label="食欲"><%= condition.eat %></td>
-            <td data-label="水分"><%= condition.moisture %></td>
-            <td data-label="嘔吐"><%= condition.puke %></td>
-            <td data-label="メモ"><%= truncate(condition.memo, length: 10) %></td>
-            <td data-label="画像" class="image-cell">
+  
+    <div class="icon-container">
+      <%= link_to image_tag('newennpiru.png', class: 'icon-small'), '#new_condition', class: 'icon-link', title: '新しい体調記録を追加' %>
+    </div>
+
+     <div class="records-container">
+      <% @conditions.each do |condition| %>
+        <div class="record-row">
+          <div class="record-item">
+            <span class="item-label">日付</span>
+            <span class="item-value"><%= condition.input_day.strftime("%Y/%m/%d %H:%M") %></span>
+          </div>
+          <div class="record-item">
+            <span class="item-label">体温</span>
+            <span class="item-value"><%= condition.temperature %>℃</span>
+          </div>
+          <div class="record-item">
+            <span class="item-label">食欲</span>
+            <span class="item-value"><%= condition.eat %></span>
+          </div>
+          <div class="record-item">
+            <span class="item-label">水分</span>
+            <span class="item-value"><%= condition.moisture %></span>
+          </div>
+          <div class="record-item">
+            <span class="item-label">嘔吐</span>
+            <span class="item-value"><%= condition.puke %></span>
+          </div>
+          <div class="record-item">
+            <span class="item-label">メモ</span>
+            <span class="item-value"><%= truncate(condition.memo, length: 20) %></span>
+          </div>
+          <div class="record-item">
+            <span class="item-label">画像</span>
+            <span class="item-value">
               <% if condition.images.attached? %>
                 <% condition.images.each do |image| %>
                   <%= image_tag image.variant(resize_to_limit: [50, 50]), class: 'record-image-small' %>
                 <% end %>
               <% else %>
-                画像なし
+                なし
               <% end %>
-            </td>
-            <td data-label="操作" class="action-buttons">
-  <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-primary' %>
-  <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-<% else %>
-  <p>ユーザー情報が見つかりません。</p>
-<% end %>
+            </span>
+          </div>
+          <div class="records-container">
+            <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-edit' %>
+            <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+</div>
+  <% else %>
+    <p>ユーザー情報が見つかりません。</p>
+  <% end %>
+</div>
