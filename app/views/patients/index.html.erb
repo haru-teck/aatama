@@ -1,0 +1,37 @@
+<div class="container">
+  <h1 class="page-title">患者一覧</h1>
+  
+  <div class="add-patient-button-container">
+    <%= link_to new_patient_path, class: 'add-patient-button', title: '新規患者登録' do %>
+      <%= image_tag 'yu-za-tuikayou.png', alt: '新規患者追加', class: 'icon-small' %>
+      <span>新規患者追加</span>
+    <% end %>
+  </div>
+
+  <div class="patient-cards">
+    <% @patients.each do |patient| %>
+      <div class="patient-card <%= patient_gender_class(patient) %>">
+        <%= button_to select_patient_path(patient), method: :post, class: "patient-select-button" do %>
+          <h2 class="patient-name"><%= patient.name %></h2>
+        <% end %>
+        <p class="patient-info"><strong>生年月日:</strong> <%= patient.birthday.strftime("%Y年%-m月%-d日") if patient.birthday %></p>
+        <p class="patient-info"><strong>年齢:</strong> 
+          <% if patient.age_with_months %>
+            <%= patient.age_with_months[0] %>歳<%= patient.age_with_months[1] %>か月
+          <% else %>
+            不明
+          <% end %>
+        </p>
+        <p class="patient-info"><strong>性別:</strong> <%= patient.gender || '未設定' %></p>
+        <div class="patient-actions">
+          <%= link_to '編集', edit_patient_path(patient), class: 'edit-button btn btn-secondary' %>
+          <%= button_to '削除', patient_path(patient), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'delete-button btn btn-danger' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="back-button-container">
+  <%= link_to 'メインメニューに戻る', root_path, class: 'btn btn-secondary back-button' %>
+</div>

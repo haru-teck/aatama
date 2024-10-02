@@ -1,17 +1,16 @@
 <div class="content-wrapper">
-  <h1 class="user-name"><%= @user ? @user.name : 'ユーザーが見つかりません' %> さん</h1>
+  <h1 class="patient-name"><%= @patient ? @patient.name : '患者が選択されていません' %> さん</h1>
 
-  <% if @user %>
-    <div class="user-info-container">
-      <!-- ユーザー情報の表示（既存のコード） -->
+  <% if @patient %>
+    <div class="patient-info-container">
+      <!-- 患者情報の表示（必要に応じて追加） -->
     </div>
 
-  
     <div class="icon-container">
       <%= link_to image_tag('newennpiru.png', class: 'icon-small'), '#new_condition', class: 'icon-link', title: '新しい体調記録を追加' %>
     </div>
 
-     <div class="records-container">
+    <div class="records-container">
       <% @conditions.each do |condition| %>
         <div class="record-row">
           <div class="record-item">
@@ -50,15 +49,15 @@
               <% end %>
             </span>
           </div>
-          <div class="records-container">
+          <div class="action-buttons">
             <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-edit' %>
             <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete' %>
           </div>
         </div>
       <% end %>
     </div>
-</div>
   <% else %>
-    <p>ユーザー情報が見つかりません。</p>
+    <p>患者が選択されていません。患者一覧から患者を選択してください。</p>
+    <%= link_to '患者一覧へ', patients_path, class: 'btn btn-primary' %>
   <% end %>
 </div>

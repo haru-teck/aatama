@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  root 'main_menu#index'
+  rdevise_for :users
+  root 'patients#index'
   
-  resources :users, except: [:show] do
+  resources :patients, except: [:show] do
     post 'select', on: :member
   end
   

@@ -1,5 +1,5 @@
-class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+class PatientsController < ApplicationController
+  before_action :set_patient, only: [:edit, :update, :destroy]
   
   # ユーザー一覧表示
   def index

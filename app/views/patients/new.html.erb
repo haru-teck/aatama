@@ -1,8 +1,8 @@
 <div class="container">
   <div class="form-container">
-    <h1 class="page-title">新規ユーザー登録</h1>
+    <h1 class="page-title">新規患者登録</h1>
     
-    <%= form_with model: @user, local: true, class: 'user-form' do |form| %>
+    <%= form_with model: @patient, local: true, class: 'patient-form' do |form| %>
       <div class="form-group">
         <%= form.label :name, '名前', class: 'form-label' %>
         <%= form.text_field :name, class: 'form-control', required: true, placeholder: '例：山田太郎' %>
@@ -14,12 +14,13 @@
       </div>
 
       <div class="form-group">
+        <%= form.label :gender, '性別', class: 'form-label' %>
         <%= form.select :gender, [['選択してください', ''], ['男性', '男性'], ['女性', '女性'], ['その他', 'その他']], {}, { class: 'form-control', required: true } %>
       </div>
 
       <div class="form-actions">
-        <%= form.submit 'ユーザー作成', class: 'btn btn-primary' %>
-        <%= link_to '戻る', users_path, class: 'btn btn-secondary' %>
+        <%= form.submit '患者を登録', class: 'btn btn-primary' %>
+        <%= link_to '戻る', patients_path, class: 'btn btn-secondary' %>
       </div>
     <% end %>
   </div>
