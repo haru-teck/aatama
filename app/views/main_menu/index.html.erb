@@ -3,11 +3,13 @@
 
   <% if @patient %>
     <div class="patient-info-container">
-      <!-- 患者情報の表示（必要に応じて追加） -->
+      <p>生年月日: <%= @patient.birthday.strftime("%Y年%m月%d日") %></p>
+      <% age, months = @patient.age_with_months %>
+      <p>年齢: <%= age %>歳 <%= months %>ヶ月</p>
     </div>
 
     <div class="icon-container">
-      <%= link_to image_tag('newennpiru.png', class: 'icon-small'), '#new_condition', class: 'icon-link', title: '新しい体調記録を追加' %>
+      <%= link_to image_tag('newennpiru.png', class: 'icon-small'), new_patient_condition_path(@patient), class: 'icon-link', title: '新しい体調記録を追加' %>
     </div>
 
     <div class="records-container">
@@ -54,6 +56,7 @@
             <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete' %>
           </div>
         </div>
+        <!-- 体調記録の表示 -->
       <% end %>
     </div>
   <% else %>

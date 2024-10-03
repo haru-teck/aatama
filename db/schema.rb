@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_02_125839) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_03_061930) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -42,14 +42,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_02_125839) do
   create_table "conditions", charset: "utf8", force: :cascade do |t|
     t.date "input_day"
     t.decimal "temperature", precision: 4, scale: 1
-    t.bigint "user_id"
     t.string "eat"
     t.string "moisture"
     t.string "puke"
     t.text "memo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_conditions_on_user_id"
+    t.bigint "patient_id", null: false
+    t.index ["patient_id"], name: "index_conditions_on_patient_id"
   end
 
   create_table "patients", charset: "utf8", force: :cascade do |t|
@@ -76,6 +76,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_02_125839) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "conditions", "users"
   add_foreign_key "patients", "users"
 end

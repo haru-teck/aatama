@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one :patient
+         has_many :patients  
+         has_many :conditions, through: :patients  
 
   validates :name, presence: true, uniqueness: true
 
@@ -43,4 +44,5 @@ class User < ApplicationRecord
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
+
 end

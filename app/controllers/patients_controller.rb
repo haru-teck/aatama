@@ -11,9 +11,9 @@ class PatientsController < ApplicationController
   end
 
   def create
-    @patient = Patient.new(patient_params)
+    @patient = current_user.patients.build(patient_params)
     if @patient.save
-      redirect_to patients_path, notice: '患者情報が正常に作成されました。'
+      redirect_to patients_path, notice: '患者を登録しました。'
     else
       render :new
     end

@@ -13,11 +13,16 @@ Rails.application.routes.draw do
 
   resources :patients, except: [:show] do
     post 'select', on: :member
+    resources :conditions  # この行を追加
   end
   
-  resources :conditions
+  resources :conditions  # この行はそのまま残す
+
   get 'main_menu', to: 'main_menu#index'
-  get 'settings', to: 'settings#index'  # この行を修正
+  resources :patients do
+    resources :conditions, shallow: true
+  end
+  get 'settings', to: 'settings#index'
 
   # Active Storageのルーティング
   get '/rails/active_storage/blobs/proxy/:signed_id/*filename', to: 'active_storage/blobs/proxy#show'

@@ -1,9 +1,10 @@
 class Patient < ApplicationRecord
   belongs_to :user
+  has_many :conditions
+
   validates :name, presence: true
   validates :birthday, presence: true  
-  validates :gender, inclusion: { in: ['男性', '女性', 'その他'], allow_nil: true }
-  has_many :conditions  
+  validates :gender, inclusion: { in: ['男性', '女性', 'その他'], allow_nil: true } 
 
   def age_with_months
     return unless birthday # 誕生日が設定されている場合のみ計算

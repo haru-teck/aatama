@@ -1,25 +1,30 @@
 class ConditionsController < ApplicationController
   before_action :set_condition, only: [:edit, :update, :destroy]
-  before_action :set_user, only: [:create]
-  
+  before_action :set_patient, only: [:new, :create]
+
   def index
     @conditions = Condition.all # すべての体調記録を取得
   end
-  
+
   def new
-    @condition = Condition.new
-    @user = User.find(params[:user_id]) if params[:user_id]
+    @condition = @patient.conditions.build
   end
 
   def create
-    @user = User.find(condition_params[:user_id])
-    @condition = @user.conditions.new(condition_params)
+    @patient = Patient.find(params[:patient_id])
+    @condition = @patient.conditions.build(condition_params)
   
     if @condition.save
-      redirect_to root_path, notice: '体調記録が正常に作成されました。'
+      puts "体調記録が保存されました。ID: #{@condition.id}, Patient ID: #{@patient.id}"
+      redirect_to main_menu_path, notice: '体調情報が保存されました。'
     else
+      puts "体調記録の保存に失敗しました。エラー: #{@condition.errors.full_messages}"
+      puts "Patient ID: #{@patient.id}, Condition params: #{condition_params}"
       render :new
     end
+  end
+
+  def edit
   end
 
   def update
@@ -32,7 +37,7 @@ class ConditionsController < ApplicationController
 
   def destroy
     @condition.destroy
-    redirect_to conditions_path, notice: '体調記録が削除されました。'
+    redirect_to main_menu_path, notice: '体調記録が削除されました。'
   end
 
   private
@@ -41,14 +46,11 @@ class ConditionsController < ApplicationController
     @condition = Condition.find(params[:id])
   end
 
-  def set_user
-    @user = User.find_by(id: params[:condition][:user_id])
-    unless @user
-      redirect_to main_menu_path, alert: '指定されたユーザーが見つかりませんでした。'
-    end
+  def set_patient
+    @patient = Patient.find(params[:patient_id])
   end
-  
+
   def condition_params
-    params.require(:condition).permit(:user_id, :input_day, :temperature, :eat, :moisture, :puke, :memo, images: [])
+    params.require(:condition).permit(:input_day, :temperature, :eat, :moisture, :puke, :memo, images: [])
   end
-end  
+end
