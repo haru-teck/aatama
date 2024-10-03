@@ -41,6 +41,8 @@ end
 
   gem 'psych', '~> 3.1'
 
+  gem 'devise'
+
 # 以下のgemはコメントアウトされていますが、必要に応じて有効にできます
 # gem "redis", "~> 4.0"
 # gem "kredis"

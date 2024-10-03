@@ -1,6 +1,8 @@
 class MainMenuController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @user = User.find_by(id: session[:selected_user_id]) || User.first
-    @conditions = @user.conditions.order(input_day: :desc) if @user
+    @patient = Patient.find_by(id: session[:selected_patient_id])
+    @conditions = @patient ? @patient.conditions.order(input_day: :desc) : []
   end
 end
