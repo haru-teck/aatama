@@ -12,8 +12,8 @@
     <% @patients.each do |patient| %>
       <div class="patient-card <%= patient_gender_class(patient) %>">
         <%= button_to select_patient_path(patient), method: :post, class: "patient-select-button" do %>
-          <h2 class="patient-name"><%= patient.name %></h2>
-        <% end %>
+       <h2 class="patient-name"><%= patient.name %></h2>
+       <% end %>
         <p class="patient-info"><strong>生年月日:</strong> <%= patient.birthday.strftime("%Y年%-m月%-d日") if patient.birthday %></p>
         <p class="patient-info"><strong>年齢:</strong> 
           <% if patient.age_with_months %>

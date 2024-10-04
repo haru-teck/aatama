@@ -36,9 +36,12 @@ class PatientsController < ApplicationController
   end
 
   def select
+    @patient = current_user.patients.find(params[:id])
+    # ここでセッションに選択された患者のIDを保存するなど
     session[:selected_patient_id] = @patient.id
-    redirect_to root_path, notice: '患者を選択しました'
+    redirect_to main_menu_path, notice: "#{@patient.name}さんを選択しました。"
   end
+
 
   private
 

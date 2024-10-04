@@ -8,23 +8,22 @@ Rails.application.routes.draw do
 
   # ログイン済みユーザーのルートパス
   authenticated :user do
-    root 'patients#index', as: :authenticated_root
+    root 'main_menu#index', as: :authenticated_root
   end
 
   resources :patients, except: [:show] do
-    post 'select', on: :member
-    resources :conditions  # この行を追加
+    resources :conditions, only: [:new, :create]
+    member do
+      post 'select'
+    end
   end
   
-  resources :conditions  # この行はそのまま残す
+  resources :conditions, only: [:index, :edit, :update, :destroy]
 
   get 'main_menu', to: 'main_menu#index'
-  resources :patients do
-    resources :conditions, shallow: true
-  end
   get 'settings', to: 'settings#index'
 
-  # Active Storageのルーティング
+  # Active Storageのルーティング（変更なし）
   get '/rails/active_storage/blobs/proxy/:signed_id/*filename', to: 'active_storage/blobs/proxy#show'
   get '/rails/active_storage/representations/proxy/:signed_blob_id/:variation_key/*filename', to: 'active_storage/representations/proxy#show'
   get '/rails/active_storage/blobs/redirect/:signed_id/*filename', to: 'active_storage/blobs/redirect#show'
