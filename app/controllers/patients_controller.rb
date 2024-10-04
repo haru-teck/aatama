@@ -12,12 +12,14 @@ class PatientsController < ApplicationController
 
   def create
     @patient = current_user.patients.build(patient_params)
+    @patient.furigana = normalize_furigana(@patient.furigana)
     if @patient.save
       redirect_to patients_path, notice: '患者を登録しました。'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
+  
 
   def edit
   end
@@ -42,6 +44,10 @@ class PatientsController < ApplicationController
     redirect_to main_menu_path, notice: "#{@patient.name}さんを選択しました。"
   end
 
+  def show
+    @patient = Patient.find(params[:id])
+  end
+
 
   private
 
@@ -50,6 +56,10 @@ class PatientsController < ApplicationController
   end
 
   def patient_params
-    params.require(:patient).permit(:name, :birthday, :gender)
+    params.require(:patient).permit(:name, :furigana, :birthday, :gender)
+  end
+
+  def normalize_furigana(furigana)
+    furigana.gsub(/[[:space:]]/, '　').strip # すべてのスペースを全角スペースに変換し、前後の空白を削除
   end
 end

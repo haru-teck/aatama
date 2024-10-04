@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     root 'main_menu#index', as: :authenticated_root
   end
 
-  resources :patients, except: [:show] do
+  resources :patients do
     resources :conditions, only: [:new, :create]
     member do
       post 'select'

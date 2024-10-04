@@ -1,0 +1,8 @@
+<h1><%= @patient.name %>さんの詳細情報</h1>
+
+<p>フリガナ: <%= @patient.furigana %></p>
+<p>生年月日: <%= @patient.birthday %></p>
+<p>性別: <%= @patient.gender %></p>
+
+<%= link_to '編集', edit_patient_path(@patient) %> |
+<%= link_to '戻る', patients_path %>

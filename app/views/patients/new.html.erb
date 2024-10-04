@@ -1,12 +1,30 @@
 <div class="container">
   <div class="form-container">
     <h1 class="page-title">新規患者登録</h1>
-    
+
     <%= form_with model: @patient, local: true, class: 'patient-form' do |form| %>
+      <% if @patient.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
+          <ul>
+            <% @patient.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
       <div class="form-group">
         <%= form.label :name, '名前', class: 'form-label' %>
-        <%= form.text_field :name, class: 'form-control', required: true, placeholder: '例：山田太郎' %>
+        <%= form.text_field :name, class: 'form-control', required: true, placeholder: '例：山田　太郎' %>
+        <small class="form-text text-muted">姓と名の間に全角スペースを入れてください</small>
       </div>
+
+      <div class="form-group">
+       <%= form.label :furigana, 'フリガナ（全角カタカナ）', class: 'form-label' %>
+       <%= form.text_field :furigana, class: 'form-control', required: true, placeholder: '例：ヤマダ　タロウ' %>
+       <small class="form-text text-muted">姓と名の間に全角スペースを入れてください</small>
+       </div>
 
       <div class="form-group">
         <%= form.label :birthday, '生年月日', class: 'form-label' %>
