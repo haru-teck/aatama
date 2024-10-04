@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
          has_many :patients  
          has_many :conditions, through: :patients  
-
+         has_many :recorded_conditions, class_name: 'Condition', foreign_key: 'recorder_id'
   
          validates :name, presence: true, uniqueness: true
 
