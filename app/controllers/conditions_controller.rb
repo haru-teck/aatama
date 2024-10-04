@@ -13,13 +13,11 @@ class ConditionsController < ApplicationController
   def create
     @patient = Patient.find(params[:patient_id])
     @condition = @patient.conditions.build(condition_params)
+    @condition.recorder = current_user  # ログインユーザーを記録者として設定
   
     if @condition.save
-      puts "体調記録が保存されました。ID: #{@condition.id}, Patient ID: #{@patient.id}"
       redirect_to main_menu_path, notice: '体調情報が保存されました。'
     else
-      puts "体調記録の保存に失敗しました。エラー: #{@condition.errors.full_messages}"
-      puts "Patient ID: #{@patient.id}, Condition params: #{condition_params}"
       render :new
     end
   end

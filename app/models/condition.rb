@@ -1,5 +1,6 @@
 class Condition < ApplicationRecord
   belongs_to :patient
+  belongs_to :recorder, class_name: 'User'
   has_many_attached :images
 
   validate :image_type

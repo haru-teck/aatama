@@ -7,7 +7,8 @@ class User < ApplicationRecord
          has_many :patients  
          has_many :conditions, through: :patients  
 
-  validates :name, presence: true, uniqueness: true
+  
+         validates :name, presence: true, uniqueness: true
 
   def email_required?
     false
