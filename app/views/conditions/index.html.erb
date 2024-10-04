@@ -1,33 +1,27 @@
-<h1>体調記録一覧</h1>
+<div class="container">
+  <h1 class="page-title">体調記録一覧</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>患者名</th>
-      <th>日付</th>
-      <th>体温</th>
-      <th>食欲</th>
-      <th>水分</th>
-      <th>嘔吐</th>
-      <th>記録者</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
+  <div class="condition-cards">
     <% @conditions.each do |condition| %>
-      <tr>
-        <td><%= condition.patient&.name || '不明' %></td>
-        <td><%= condition.input_day.strftime("%Y/%m/%d %H:%M") %></td>
-        <td><%= condition.temperature %>℃</td>
-        <td><%= condition.eat %></td>
-        <td><%= condition.moisture %></td>
-        <td><%= condition.puke %></td>
-        <td><%= condition.recorder&.name || '不明' %></td>
-        <td>
-          <%= link_to '編集', edit_condition_path(condition) %>
-          <%= link_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-        </td>
-      </tr>
+      <div class="condition-card">
+        <div class="condition-header <%= patient_gender_class(condition.patient) %>">
+          <h2 class="patient-name"><%= condition.patient&.name || '不明' %></h2>
+          <p class="condition-date"><%= condition.input_day.strftime("%Y/%m/%d %H:%M") %></p>
+        </div>
+        <div class="condition-body">
+          <p><strong>体温:</strong> <%= condition.temperature %>℃</p>
+          <p><strong>食欲:</strong> <%= condition.eat %></p>
+          <p><strong>水分:</strong> <%= condition.moisture %></p>
+          <p><strong>嘔吐:</strong> <%= condition.puke %></p>
+        </div>
+        <div class="condition-footer">
+          <p class="recorder">記録者: <%= condition.recorder&.name || '不明' %></p>
+          <div class="condition-actions">
+            <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-edit' %>
+            <%= link_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete' %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

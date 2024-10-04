@@ -1,27 +1,140 @@
-/* 基本設定 */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  margin: 0;
-  padding: 0;
-}
-
 .container {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 20px;
 }
 
-/* フォーム関連 */
+.page-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.condition-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.condition-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.condition-header {
+  background-color: #f0f0f0;
+  padding: 15px;
+}
+
+.patient-name {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.condition-date {
+  margin: 5px 0 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.condition-body {
+  padding: 15px;
+}
+
+.condition-body p {
+  margin: 10px 0;
+}
+
+.condition-footer {
+  background-color: #f8f9fa;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recorder {
+  margin: 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.condition-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .condition-cards {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .condition-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.condition-header.patient-male {
+  background-color: #e6f0ff;
+}
+
+.condition-header.patient-female {
+  background-color: #ffe6f2;
+}
+
+.condition-header.patient-other {
+  background-color: #e6fff2;
+}
+
+.patient-male .patient-name {
+  color: #4e73df;
+}
+
+.patient-female .patient-name {
+  color: #e83e8c;
+}
+
+.patient-other .patient-name {
+  color: #1cc88a;
+}
+
+/* 既存のスタイルはそのままで、以下を追加または更新 */
+
 .form-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
@@ -32,20 +145,20 @@ body {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #333;
 }
 
 .form-control {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 16px;
 }
 
 .radio-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
 }
 
 .radio-input {
@@ -58,254 +171,64 @@ body {
   background-color: #f0f0f0;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+}
+
+.radio-label:hover {
+  background-color: #e0e0e0;
 }
 
 .radio-input:checked + .radio-label {
-  background-color: #ef5151;
+  background-color: #4CAF50;
   color: white;
 }
 
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  margin-right: 10px;
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
 }
 
 .btn-primary {
-  background-color: #ff0044;
+  background-color: #4CAF50;
   color: white;
 }
 
 .btn-secondary {
-  background-color: #6c757d;
-  color: white;
+  background-color: #f0f0f0;
+  color: #333;
 }
 
-@media (max-width: 600px) {
+#error_explanation {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+#error_explanation h2 {
+  font-size: 18px;
+  margin-top: 0;
+}
+
+#error_explanation ul {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
   .form-container {
-    padding: 10px;
+    padding: 15px;
   }
 
   .radio-group {
     flex-direction: column;
+    gap: 10px;
   }
 
   .radio-label {
     width: 100%;
     text-align: center;
-  }
-
-  .btn {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-/* テーブル関連 */
-.table-responsive {
-  overflow-x: auto;
-}
-
-.condition-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-.condition-table th,
-.condition-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-}
-
-/* スマートフォン向けのテーブルスタイル */
-@media (max-width: 600px) {
-  .condition-table, 
-  .condition-table thead, 
-  .condition-table tbody, 
-  .condition-table th, 
-  .condition-table td, 
-  .condition-table tr {
-    display: block;
-  }
-  
-  .condition-table thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-  
-  .condition-table tr {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    background-color: #f8f8f8;
-  }
-  
-  .condition-table td {
-    border: none;
-    position: relative;
-    padding: 10px 10px 10px 50%;
-    text-align: left;
-    min-height: 40px; /* 最小の高さを設定 */
-  }
-
-  .condition-table td:not(:last-child) {
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .condition-table td:before {
-    content: attr(data-label);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 45%;
-    padding: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-    background-color: #e9ecef; /* 項目の背景色 */
-    border-right: 1px solid #ddd; /* 項目と入力内容の区切り線 */
-    height: 100%; /* 親要素の高さいっぱいに */
-    box-sizing: border-box;
-  }
-
-  .image-cell, .action-cell {
-    padding-left: 10px;
-  }
-
-  .action-cell {
-    text-align: center;
-    background-color: #fff;
-  }
-
-  .condition-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 5px;
-  }
-
-  .button {
-    display: inline-block;
-    margin: 5px;
-  }
-}
-
-.btn, .button {
-  display: inline-block;
-  padding: 8px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 14px;
-  margin: 5px;
-  text-align: center; /* テキストを中央揃えに */
-  line-height: 1.5; /* 行の高さを調整 */
-  vertical-align: middle; /* 垂直方向の配置を中央に */
-}
-
-.btn-primary, .button-edit {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn-secondary, .button-delete {
-  background-color: #6c757d;
-  color: white;
-}
-
-.button-new {
-  background-color: #28a745;
-  color: white;
-}
-
-/* スマートフォン向けの調整 */
-@media (max-width: 600px) {
-  .btn, .button {
-    width: 100%; /* ボタンを画面幅いっぱいに */
-    margin: 5px 0; /* 上下のマージンのみ設定 */
-  }
-
-  .action-cell {
-    padding: 10px; /* セル内のパディングを追加 */
-  }
-
-  .action-cell .button {
-    display: block; /* ボタンを縦に並べる */
-    margin-bottom: 10px; /* ボタン間の間隔を設定 */
-  }
-
-  .action-cell .button:last-child {
-    margin-bottom: 0; /* 最後のボタンの下マージンを削除 */
-  }
-}
-
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-  .form-container {
-    padding: 10px;
-  }
-
-  .radio-group {
-    flex-direction: column;
-  }
-
-  .condition-table {
-    font-size: 14px;
-  }
-
-  .btn, .button {
-    width: 100%;
-    margin: 5px 0;
-  }
-}
-
-@media (max-width: 480px) {
-  .condition-table, .condition-table thead, .condition-table tbody, .condition-table th, .condition-table td, .condition-table tr {
-    display: block;
-  }
-
-  .condition-table thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  .condition-table tr {
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-  }
-
-  .condition-table td {
-    border: none;
-    position: relative;
-    padding-left: 50%;
-    text-align: left;
-  }
-
-  .condition-table td:before {
-    content: attr(data-label);
-    position: absolute;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-  }
-
-  .image-cell, .action-cell {
-    padding-left: 10px;
-  }
-
-  .condition-image {
-    max-width: 100%;
-    height: auto;
   }
 }

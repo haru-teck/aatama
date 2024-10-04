@@ -1,63 +1,59 @@
 <div class="content-wrapper">
-  <h1 class="patient-name"><%= @patient ? @patient.name : '患者が選択されていません' %> さん</h1>
+  <div class="patient-info-container">
+    <h1 class="patient-name"><%= @patient ? @patient.name : '患者が選択されていません' %> さん</h1>
+
+    <% if @patient %>
+      <div class="patient-details">
+        <p>生年月日: <%= @patient.birthday.strftime("%Y年%m月%d日") %></p>
+        <% age, months = @patient.age_with_months %>
+        <p>年齢: <%= age %>歳 <%= months %>ヶ月</p>
+      </div>
+    <% end %>
+  </div>
 
   <% if @patient %>
-    <div class="patient-info-container">
-      <p>生年月日: <%= @patient.birthday.strftime("%Y年%m月%d日") %></p>
-      <% age, months = @patient.age_with_months %>
-      <p>年齢: <%= age %>歳 <%= months %>ヶ月</p>
-    </div>
-
     <div class="icon-container">
       <%= link_to image_tag('newennpiru.png', class: 'icon-small'), new_patient_condition_path(@patient), class: 'icon-link', title: '新しい体調記録を追加' %>
     </div>
 
     <div class="records-container">
       <% @conditions.each do |condition| %>
-        <div class="record-row">
-          <div class="record-item">
-            <span class="item-label">日付</span>
-            <span class="item-value"><%= condition.input_day.strftime("%Y年%m月%d日 %H:%M") %>
+        <div class="record-card">
+          <div class="record-header">
+            <div class="record-date"><%= condition.input_day.strftime("%Y年%m月%d日 %H:%M") %></div>
+            <div class="record-temperature"><%= condition.temperature %>℃</div>
           </div>
-          <div class="record-item">
-            <span class="item-label">体温</span>
-            <span class="item-value"><%= condition.temperature %>℃</span>
+          <div class="record-body">
+            <div class="record-item">
+              <span class="item-label">食欲:</span>
+              <span class="item-value"><%= condition.eat %></span>
+            </div>
+            <div class="record-item">
+              <span class="item-label">水分:</span>
+              <span class="item-value"><%= condition.moisture %></span>
+            </div>
+            <div class="record-item">
+              <span class="item-label">嘔吐:</span>
+              <span class="item-value"><%= condition.puke %></span>
+            </div>
+            <div class="record-item">
+              <span class="item-label">メモ:</span>
+              <span class="item-value"><%= truncate(condition.memo, length: 50) %></span>
+            </div>
           </div>
-          <div class="record-item">
-            <span class="item-label">食欲</span>
-            <span class="item-value"><%= condition.eat %></span>
-          </div>
-          <div class="record-item">
-            <span class="item-label">水分</span>
-            <span class="item-value"><%= condition.moisture %></span>
-          </div>
-          <div class="record-item">
-            <span class="item-label">嘔吐</span>
-            <span class="item-value"><%= condition.puke %></span>
-          </div>
-          <div class="record-item">
-            <span class="item-label">メモ</span>
-            <span class="item-value"><%= truncate(condition.memo, length: 20) %></span>
-          </div>
-          <div class="record-item">
-            <span class="item-label">記録者</span>
-            <span class="item-value"><%= condition.recorder&.name %></span>
-          </div>
-          <div class="record-item">
-            <span class="item-label">画像</span>
-            <span class="item-value">
-              <% if condition.images.attached? %>
-                <% condition.images.each do |image| %>
-                  <%= image_tag image.variant(resize_to_limit: [50, 50]), class: 'record-image-small' %>
-                <% end %>
-              <% else %>
-                なし
+          <div class="record-images">
+            <% if condition.images.attached? %>
+              <% condition.images.each do |image| %>
+                <%= image_tag image.variant(resize_to_limit: [50, 50]), class: 'record-image-thumbnail' %>
               <% end %>
-            </span>
+            <% end %>
           </div>
-          <div class="action-buttons">
-            <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-edit' %>
-            <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete' %>
+          <div class="record-footer">
+            <span class="record-recorder">記録者: <%= condition.recorder&.name %></span>
+            <div class="action-buttons">
+              <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-edit' %>
+              <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete', form_class: 'delete-form' %>
+            </div>
           </div>
         </div>
       <% end %>

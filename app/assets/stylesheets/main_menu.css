@@ -3,171 +3,235 @@ body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
   color: #333;
+  background-color: #f4f4f4;
 }
 
 .content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 20px;
 }
 
-.user-name {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
+.patient-info-container {
   text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.patient-name {
+  font-size: 3em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.patient-details {
+  font-size: 1.4em;
+  color: #34495e;
+}
+
+/* アイコンのスタイル */
+.icon-container {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.icon-container .icon-small {
+  width: 100px;
+  height: 100px;
 }
 
 /* レコードのスタイル */
 .records-container {
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
 }
 
-.record-row {
+.record-card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.record-header {
+  background-color: #f0f0f0;
+  padding: 25px;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
+}
+
+.record-date {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.8em;
+}
+
+.record-temperature {
+  font-size: 2em;
+  color: #e74c3c;
+  font-weight: bold;
+  margin-left: 30px;
+}
+
+.record-body {
+  padding: 30px;
 }
 
 .record-item {
-  flex: 1 1 calc(25% - 20px);
-  margin: 10px;
-  min-width: 150px;
+  margin-bottom: 20px;
 }
 
 .item-label {
-  font-size: 14px;
+  font-weight: bold;
   color: #666;
-  margin-bottom: 4px;
+  font-size: 1.3em;
 }
 
 .item-value {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.4em;
+  margin-top: 8px;
 }
 
-.record-image-small {
-  width: 60px;
-  height: 60px;
+.record-images {
+  padding: 0 15px 15px;
+}
+
+.record-image-thumbnail {
+  width: 50px;
+  height: 50px;
   object-fit: cover;
   border-radius: 4px;
+  margin-right: 5px;
+  transition: transform 0.3s ease;
+}
+
+.record-image-thumbnail:hover {
+  transform: scale(2);
+  z-index: 1;
+}
+
+.record-footer {
+  background-color: #f9f9f9;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-recorder {
+  font-size: 0.9em;
+  color: #888;
 }
 
 /* ボタンのスタイル */
 .action-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
 }
 
 .btn {
-  font-size: 12px;
-  padding: 5px 10px;
+  font-size: 14px;
+  padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
   cursor: pointer;
   border: none;
+  transition: background-color 0.3s ease;
 }
 
 .btn-edit {
-  background-color: #4CAF50;
+  background-color: #3498db;
   color: white;
 }
 
-.btn-delete {
-  background-color: #f44336;
+.btn-edit:hover {
+  background-color: #2980b9;
+}
+
+.btn-delete, form .btn-delete {
+  background-color: #e74c3c;
   color: white;
 }
 
-/* アイコンのスタイル */
-.icon-container {
-  margin: 30px 0;
-  text-align: center;
+.btn-delete:hover, form .btn-delete:hover {
+  background-color: #c0392b;
 }
 
-.icon-container .icon-small {
-  width: 80px;
-  height: 80px;
-}
-
-.icon-link {
-  text-decoration: none;
-  display: inline-block;
-}
-
-.icon-link:hover .icon-small {
-  transform: scale(1.1);
-}
-
-/* タブレット用メディアクエリ */
+/* レスポンシブデザイン */
 @media (max-width: 1024px) {
-  .record-item {
-    flex: 1 1 calc(33.333% - 20px);
+  .records-container {
+    grid-template-columns: 1fr;
   }
 
-  .user-name {
-    font-size: 22px;
+  .patient-name {
+    font-size: 2.5em;
   }
 }
 
-/* スマートフォン用メディアクエリ */
 @media (max-width: 768px) {
   .content-wrapper {
-    padding: 0 10px;
+    padding: 15px;
   }
 
-  .user-name {
-    font-size: 20px;
+  .patient-name {
+    font-size: 2.2em;
   }
 
-  .record-row {
+  .patient-details {
+    font-size: 1.2em;
+  }
+
+  .record-header {
     flex-direction: column;
-    align-items: stretch;
-    padding: 10px;
+    align-items: flex-start;
   }
 
-  .record-item {
-    flex: 1 1 100%;
-    margin: 5px 0;
+  .record-date, .record-temperature {
+    font-size: 1.6em;
   }
 
-  .item-label {
-    font-size: 12px;
+  .record-temperature {
+    margin-left: 0;
+    margin-top: 10px;
   }
 
-  .item-value {
-    font-size: 16px;
+  .icon-container .icon-small {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .patient-name {
+    font-size: 2em;
+  }
+
+  .patient-details {
+    font-size: 1.1em;
+  }
+
+  .record-date, .record-temperature {
+    font-size: 1.4em;
+  }
+
+  .record-image-thumbnail {
+    width: 40px;
+    height: 40px;
   }
 
   .action-buttons {
     flex-direction: column;
-    align-items: stretch;
   }
 
   .btn {
     width: 100%;
     margin-bottom: 5px;
-  }
-
-  .icon-container .icon-small {
-    width: 60px;
-    height: 60px;
-  }
-}
-
-/* 小さなスマートフォン用メディアクエリ */
-@media (max-width: 480px) {
-  .user-name {
-    font-size: 18px;
-  }
-
-  .record-image-small {
-    width: 40px;
-    height: 40px;
   }
 }

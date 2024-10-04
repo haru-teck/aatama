@@ -1,12 +1,14 @@
 module PatientsHelper
   def patient_gender_class(patient)
+    return 'patient-card-other' if patient.nil?
+
     case patient.gender
     when '男性'
-      'patient-name-male'
+      'patient-card-male'
     when '女性'
-      'patient-name-female'
+      'patient-card-female'
     else
-      'patient-name-other'
+      'patient-card-other'
     end
   end
 end

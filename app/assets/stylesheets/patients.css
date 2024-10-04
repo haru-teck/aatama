@@ -1,0 +1,260 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+}
+
+.add-patient-button-container {
+  margin-bottom: 30px;
+}
+
+.add-patient-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #28a745;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.add-patient-button:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}
+
+.add-patient-button .icon-small {
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  filter: brightness(0) invert(1);
+}
+
+.patient-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.patient-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.patient-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.patient-select-button {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  text-align: center;
+}
+
+.patient-name {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+/* 性別による色分け */
+.patient-card-male .patient-name {
+  background-color: #e6f0ff;
+  color: #4e73df;
+}
+
+.patient-card-female .patient-name {
+  background-color: #ffe6f2;
+  color: #e83e8c;
+}
+
+.patient-card-other .patient-name {
+  background-color: #e6fff2;
+  color: #1cc88a;
+}
+
+.patient-info {
+  margin-bottom: 10px;
+}
+
+.patient-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #007bff;  /* 青色に変更 */
+}
+
+.btn-secondary:hover {
+  background-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+@media (max-width: 1024px) {
+  .patient-cards {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .patient-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-card {
+    padding: 15px;
+  }
+
+  .patient-name {
+    font-size: 1.3em;
+  }
+}
+
+@media (max-width: 480px) {
+  .patient-card {
+    padding: 10px;
+  }
+
+  .patient-name {
+    font-size: 1.2em;
+  }
+
+  .patient-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .patient-actions .btn {
+    width: 100%;
+  }
+}
+/* 患者詳細ページのスタイル */
+.patient-detail-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.patient-detail-card .patient-name {
+  font-size: 2em;
+  margin-bottom: 30px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.patient-info-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.patient-info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.patient-info-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #495057;
+}
+
+.info-value {
+  color: #212529;
+}
+
+.patient-detail-card .patient-actions {
+  justify-content: center;
+  gap: 20px;
+}
+
+.patient-detail-card .btn {
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  .patient-detail-card {
+    padding: 20px;
+  }
+
+  .patient-detail-card .patient-name {
+    font-size: 1.8em;
+  }
+
+  .patient-info-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info-label {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .patient-detail-card {
+    padding: 15px;
+  }
+
+  .patient-detail-card .patient-name {
+    font-size: 1.5em;
+  }
+
+  .patient-detail-card .patient-actions {
+    flex-direction: column;
+  }
+
+  .patient-detail-card .btn {
+    width: 100%;
+  }
+}

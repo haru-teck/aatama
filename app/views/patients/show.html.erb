@@ -1,8 +1,35 @@
-<h1><%= @patient.name %>さんの詳細情報</h1>
+<div class="container">
+  <div class="patient-detail-card <%= patient_gender_class(@patient) %>">
+    <h1 class="patient-name"><%= @patient.name %>さんの詳細情報</h1>
 
-<p>フリガナ: <%= @patient.furigana %></p>
-<p>生年月日: <%= @patient.birthday %></p>
-<p>性別: <%= @patient.gender %></p>
+    <div class="patient-info-container">
+      <div class="patient-info-item">
+        <span class="info-label">フリガナ:</span>
+        <span class="info-value"><%= @patient.furigana %></span>
+      </div>
+      <div class="patient-info-item">
+        <span class="info-label">生年月日:</span>
+        <span class="info-value"><%= @patient.birthday.strftime("%Y年%-m月%-d日") if @patient.birthday %></span>
+      </div>
+      <div class="patient-info-item">
+        <span class="info-label">性別:</span>
+        <span class="info-value"><%= @patient.gender || '未設定' %></span>
+      </div>
+      <div class="patient-info-item">
+        <span class="info-label">年齢:</span>
+        <span class="info-value">
+          <% if @patient.age_with_months %>
+            <%= @patient.age_with_months[0] %>歳<%= @patient.age_with_months[1] %>か月
+          <% else %>
+            不明
+          <% end %>
+        </span>
+      </div>
+    </div>
 
-<%= link_to '編集', edit_patient_path(@patient) %> |
-<%= link_to '戻る', patients_path %>
+    <div class="patient-actions">
+      <%= link_to '編集', edit_patient_path(@patient), class: 'btn btn-secondary' %>
+      <%= link_to '戻る', patients_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
