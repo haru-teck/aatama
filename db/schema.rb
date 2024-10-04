@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_04_022506) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_04_042926) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_04_022506) do
   end
 
   create_table "conditions", charset: "utf8", force: :cascade do |t|
-    t.date "input_day"
+    t.datetime "input_day"
     t.decimal "temperature", precision: 4, scale: 1
     t.string "eat"
     t.string "moisture"

@@ -5,6 +5,14 @@ class Condition < ApplicationRecord
 
   validate :image_type
 
+  def input_day=(value)
+    if value.is_a?(String)
+      super(Time.zone.parse(value))
+    else
+      super(value)
+    end
+  end
+
   private
 
   def image_type
