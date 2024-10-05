@@ -9,9 +9,9 @@
   </div>
 
   <%= form_with url: patients_path, method: :get, local: true do |f| %>
-  <%= f.text_field :query, placeholder: "患者名またはフリガナで検索", value: params[:query] %>
-  <%= f.submit "検索" %>
-<% end %>
+    <%= f.text_field :query, placeholder: "患者名またはフリガナで検索", value: params[:query] %>
+    <%= f.submit "検索" %>
+  <% end %>
 
   <div class="patient-cards">
     <% @patients.each do |patient| %>
@@ -39,19 +39,18 @@
   </div>
 </div>
 
- <script>
+<%= javascript_tag nonce: true do %>
+  document.addEventListener("turbo:load", function() {
     console.log("Patients index page loaded");
-    document.addEventListener("DOMContentLoaded", function() {
-      console.log("DOM fully loaded");
-      const patientLinks = document.querySelectorAll('.patient-select-button');
-      patientLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          console.log("Patient link clicked:", this.href);
-        });
+    console.log("DOM fully loaded");
+    const patientLinks = document.querySelectorAll('.patient-select-button');
+    patientLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        console.log("Patient link clicked:", this.href);
       });
     });
-  </script>
-</div>
+  });
+<% end %>
 
 <div class="back-button-container">
   <%= link_to 'メインメニューに戻る', root_path, class: 'btn btn-secondary back-button' %>
