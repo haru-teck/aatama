@@ -18,6 +18,7 @@
       <div class="patient-card <%= patient_gender_class(patient) %>">
         <%= link_to patient_path(patient), class: "patient-select-button" do %>
           <h2 class="patient-name"><%= patient.name %></h2>
+          <p class="patient-furigana"><%= patient.furigana %></p>
         <% end %>
         <p class="patient-info"><strong>生年月日:</strong> <%= patient.birthday.strftime("%Y年%-m月%-d日") if patient.birthday %></p>
         <p class="patient-info"><strong>年齢:</strong> 
