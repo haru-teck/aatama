@@ -37,15 +37,20 @@ class PatientsController < ApplicationController
     redirect_to patients_path, notice: '患者情報が削除されました'
   end
 
-  def select
-    @patient = current_user.patients.find(params[:id])
-    # ここでセッションに選択された患者のIDを保存するなど
-    session[:selected_patient_id] = @patient.id
-    redirect_to main_menu_path, notice: "#{@patient.name}さんを選択しました。"
+  def search
+    @patients = Patient.where("furigana LIKE ?", "%#{params[:query]}%").limit(5)
+    puts "Search query: #{params[:query]}"
+    puts "Found patients: #{@patients.map(&:name)}"
+    render json: @patients.map { |p| { id: p.id, name: p.name, furigana: p.furigana } }
   end
 
   def show
     @patient = Patient.find(params[:id])
+  end
+
+  def search
+    @patients = Patient.where("furigana LIKE ?", "%#{params[:query]}%").limit(5)
+    render json: @patients.map { |p| { id: p.id, name: p.name, furigana: p.furigana } }
   end
 
 
