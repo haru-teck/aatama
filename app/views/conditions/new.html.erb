@@ -11,7 +11,7 @@
       
       <div class="form-group">
         <%= form.label :temperature, '体温', class: 'form-label' %>
-        <%= form.text_field :temperature, required: true, step: 'any', inputmode: 'decimal', class: 'form-control', placeholder: '例: 37.5' %>
+        <%= form.text_field :temperature, required: true, readonly: true, class: 'form-control temperature-input', placeholder: '例: 37.5' %>
       </div>
       
       <div class="form-group">
@@ -72,3 +72,55 @@
     <% end %>
   </div>
 </div>
+
+<div id="temperature-keypad" class="hidden" style="display: none;">
+  <div class="key" data-value="1">1</div>
+  <div class="key" data-value="2">2</div>
+  <div class="key" data-value="3">3</div>
+  <div class="key" data-value="4">4</div>
+  <div class="key" data-value="5">5</div>
+  <div class="key" data-value="6">6</div>
+  <div class="key" data-value="7">7</div>
+  <div class="key" data-value="8">8</div>
+  <div class="key" data-value="9">9</div>
+  <div class="key" data-value=".">.</div>
+  <div class="key" data-value="0">0</div>
+  <div class="key enter">入力</div>
+</div>
+
+<%= javascript_tag do %>
+  document.addEventListener('DOMContentLoaded', function() {
+    const temperatureInput = document.querySelector('.temperature-input');
+    const keypad = document.getElementById('temperature-keypad');
+    let tempInput = '';
+
+    temperatureInput.addEventListener('click', function(event) {
+      event.preventDefault();
+      keypad.style.display = 'grid';  // display: noneを上書きする
+      tempInput = this.value;
+    });
+
+    const keys = keypad.querySelectorAll('.key');
+    keys.forEach(key => {
+      key.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        
+        if (value) {
+          if (value === '.' && tempInput.includes('.')) return;
+          if (tempInput.length >= 4) return;
+          tempInput += value;
+          temperatureInput.value = tempInput;
+        } else if (this.classList.contains('enter')) {
+          keypad.style.display = 'none';  // キーパッドを非表示にする
+        }
+      });
+    });
+
+    // キーパッド以外の場所をクリックしたときにキーパッドを非表示にする
+    document.addEventListener('click', function(event) {
+      if (!keypad.contains(event.target) && event.target !== temperatureInput) {
+        keypad.style.display = 'none';
+      }
+    });
+  });
+<% end %>

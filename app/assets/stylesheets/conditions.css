@@ -232,3 +232,36 @@
     text-align: center;
   }
 }
+
+
+
+#temperature-keypad {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f0f0f0;
+  padding: 10px;
+  display: none;  /* 初期状態で非表示 */
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  z-index: 1000;
+}
+
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.key.enter {
+  grid-column: span 3;
+  background-color: #4CAF50;
+  color: white;
+}
