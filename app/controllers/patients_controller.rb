@@ -2,8 +2,11 @@ class PatientsController < ApplicationController
   before_action :set_patient, only: [:edit, :update, :destroy, :select]
   
   def index
-    @patients = Patient.all
-    @patient = Patient.new
+    if params[:query].present?
+      @patients = Patient.where("name LIKE ? OR furigana LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    else
+      @patients = Patient.all
+    end
   end
 
   def new
@@ -37,8 +40,8 @@ class PatientsController < ApplicationController
   end
 
   def search
-    @patients = Patient.where("furigana LIKE ?", "%#{params[:query]}%").limit(5)
-    render json: @patients.map { |p| { id: p.id, name: p.name, furigana: p.furigana } }
+    @patients = Patient.where("furigana LIKE ?", "%#{params[:query]}%")
+    render json: @patients.map { |patient| { id: patient.id, name: patient.name, furigana: patient.furigana } }
   end
 
   def show

@@ -13,5 +13,9 @@ Rails.application.config.assets.version = "1.0"
 Rails.application.config.assets.precompile += %w( patients.css )
 Rails.application.config.assets.precompile += %w( conditions.css )
 
+Rails.application.config.assets.precompile += %w( controllers/patient_search_controller.js )
+
 # 以下の行を追加
-Rails.application.config.assets.precompile += %w( controllers/*.js )
+Rails.application.config.assets.configure do |env|
+  env.export_concurrent = false
+end
