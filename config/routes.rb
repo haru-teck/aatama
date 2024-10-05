@@ -23,8 +23,9 @@ Rails.application.routes.draw do
   
   resources :conditions, only: [:index, :edit, :update, :destroy]
 
-  get 'main_menu', to: 'main_menu#index'
+  get 'main_menu', to: 'main_menu#index', as: :main_menu
   get 'settings', to: 'settings#index'
+  get 'patients/search', to: 'patients#search'
 
   # Active Storageのルーティング（変更なし）
   get '/rails/active_storage/blobs/proxy/:signed_id/*filename', to: 'active_storage/blobs/proxy#show'

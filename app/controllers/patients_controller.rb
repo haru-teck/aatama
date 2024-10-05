@@ -37,8 +37,8 @@ class PatientsController < ApplicationController
   end
 
   def search
-    @patients = Patient.where("furigana LIKE ?", "%#{params[:query]}%").limit(5)
-    render json: @patients.map { |p| { id: p.id, name: p.name, furigana: p.furigana } }
+    @patients = Patient.where("furigana LIKE ?", "%#{params[:query]}%")
+    render json: @patients.map { |patient| { id: patient.id, name: patient.name, furigana: patient.furigana } }
   end
 
   def show

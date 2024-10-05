@@ -9,14 +9,14 @@
   </div>
 
   <div class="search-container" data-controller="patient-search">
-    <input type="text" data-patient-search-target="input" placeholder="患者名（カタカナ）で検索" data-action="input->patient-search#search">
+    <input type="text" data-patient-search-target="input" placeholder="フリガナで検索" data-action="input->patient-search#search">
     <ul data-patient-search-target="results"></ul>
   </div>
 
   <div class="patient-cards">
     <% @patients.each do |patient| %>
       <div class="patient-card <%= patient_gender_class(patient) %>">
-        <%= link_to patient_path(patient), class: "patient-select-button" do %>
+        <%= link_to main_menu_path(patient_id: patient.id), class: "patient-select-button" do %>
           <h2 class="patient-name"><%= patient.name %></h2>
           <p class="patient-furigana"><%= patient.furigana %></p>
         <% end %>
@@ -30,6 +30,7 @@
         </p>
         <p class="patient-info"><strong>性別:</strong> <%= patient.gender || '未設定' %></p>
         <div class="patient-actions">
+          <%= link_to '詳細', patient_path(patient), class: 'btn btn-primary' %>
           <%= link_to '編集', edit_patient_path(patient), class: 'edit-button btn btn-secondary' %>
           <%= button_to '削除', patient_path(patient), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'delete-button btn btn-danger' %>
         </div>
