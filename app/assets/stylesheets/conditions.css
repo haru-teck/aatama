@@ -232,3 +232,39 @@
     text-align: center;
   }
 }
+
+/* 体温入力のキーボード */
+
+#temperature-keypad {
+  position: fixed;
+  bottom: 10px;  /* 画面下端から少し離す */
+  left: 50%;
+  transform: translateX(-50%);  /* 中央寄せ */
+  background-color: #f0f0f0;
+  padding: 5px;
+  display: none;  /* 初期状態で非表示 */
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  z-index: 1000;
+  width: 180px;  /* 全体の幅を指定 */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;  /* キーの高さを小さく */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;  /* フォントサイズを小さく */
+  cursor: pointer;
+}
+
+.key.enter {
+  grid-column: span 3;
+  background-color: #4CAF50;
+  color: white;
+}
