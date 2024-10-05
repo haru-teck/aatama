@@ -8,10 +8,7 @@ export default class extends Controller {
   }
 
   search() {
-    console.log("Search method called")
     const query = this.inputTarget.value
-    console.log("Query:", query)
-
     if (query.length < 2) {
       this.resultsTarget.innerHTML = ''
       return
@@ -20,24 +17,6 @@ export default class extends Controller {
     fetch(`/patients/search?query=${encodeURIComponent(query)}`)
       .then(response => response.json())
       .then(data => {
-        console.log("Search results:", data)
-        this.resultsTarget.innerHTML = data.map(patient => `
-          <li>
-            <a href="#" data-action="click->patient-search#selectPatient" data-patient-id="${patient.id}">
-              ${patient.name} (${patient.furigana})
-            </a>
-          </li>
-        `).join('')
-      })
-      .catch(error => console.error('Error:', error))
-  }
-
-  selectPatient(event) {
-
-    fetch(`/patients/search?query=${encodeURIComponent(query)}`)
-      .then(response => response.json())
-      .then(data => {
-        console.log("Search results:", data)
         this.resultsTarget.innerHTML = data.map(patient => `
           <li>
             <a href="#" data-action="click->patient-search#selectPatient" data-patient-id="${patient.id}">
@@ -52,13 +31,20 @@ export default class extends Controller {
   selectPatient(event) {
     event.preventDefault()
     const patientId = event.currentTarget.dataset.patientId
-    const patientName = event.currentTarget.textContent.trim()
-    this.inputTarget.value = patientName
-    this.resultsTarget.innerHTML = ''
-    console.log("Patient selected:", patientId, patientName)
-    // ここで選択された患者のIDをセッションに保存するなどの処理を行う
-    // 例: fetch(`/patients/${patientId}/select`, { method: 'POST' })
-    //     .then(() => window.location.href = '/main_menu')
-    // window.location.href = '/main_menu'
+    
+    fetch(`/patients/${patientId}/select`, {
+      method: 'POST',
+      headers: {
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ patient_id: patientId })
+    }).then(response => {
+      if (response.ok) {
+        window.location.href = '/main_menu'
+      } else {
+        console.error('Error selecting patient')
+      }
+    })
   }
 }
