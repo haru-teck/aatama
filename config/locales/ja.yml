@@ -1,4 +1,37 @@
-# config/locales/ja.yml
 ja:
   hello: "こんにちは"
-  # 他の翻訳もここに追加できます
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              taken: "はすでに使用されています。"
+            email:
+              taken: "はすでに使用されています。"
+    attributes:
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+  errors:
+    messages:
+      not_saved: "登録できませんでした。"
+      taken: "はすでに使用されています。"
+      blank: "を入力してください。"
+      too_short: "は%{count}文字以上で入力してください。"
+      too_long: "は%{count}文字以下で入力してください。"
+      confirmation: "が一致しません。"
+      invalid: "は不正な値です。"
+  devise:
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+    registrations:
+      signed_up: "アカウント登録が完了しました。"
+      updated: "アカウント情報を更新しました。"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      invalid: "%{authentication_keys}またはパスワードが違います。"
+      not_found_in_database: "%{authentication_keys}またはパスワードが違います。"
