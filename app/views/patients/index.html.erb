@@ -7,11 +7,10 @@
       <span>新規患者追加</span>
     <% end %>
     
-    <div class="search-container" data-controller="patient-search">
+    <<div class="search-container" data-controller="patient-search">
   <input type="text" data-patient-search-target="input" placeholder="患者名（カタカナ）で検索" data-action="input->patient-search#search">
   <ul data-patient-search-target="results"></ul>
 </div>
-  </div>
 
   <div class="patient-cards">
     <% @patients.each do |patient| %>
