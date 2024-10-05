@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   resources :patients do
     resources :conditions, only: [:new, :create]
+    collection do
+      get 'search'
+    end
     member do
       post 'select'
     end

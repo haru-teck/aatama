@@ -148,6 +148,46 @@ textarea {
   background-color: #357abd;
 }
 
+/* 検索用 */
+
+.search-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.search-container input {
+  padding: 5px;
+  width: 250px;
+}
+
+.search-container ul {
+  position: absolute;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+  z-index: 1000;
+}
+
+.search-container li {
+  padding: 5px;
+}
+
+.search-container li:hover {
+  background-color: #f0f0f0;
+}
+
+.search-container a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
 /* タブレット向けスタイル */
 @media (max-width: 1024px) {
   nav {
