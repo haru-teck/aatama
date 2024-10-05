@@ -8,10 +8,10 @@
     <% end %>
   </div>
 
-  <div class="search-container" data-controller="patient-search">
-    <input type="text" data-patient-search-target="input" placeholder="フリガナで検索" data-action="input->patient-search#search">
-    <ul data-patient-search-target="results"></ul>
-  </div>
+  <%= form_with url: patients_path, method: :get, local: true do |f| %>
+  <%= f.text_field :query, placeholder: "患者名またはフリガナで検索", value: params[:query] %>
+  <%= f.submit "検索" %>
+<% end %>
 
   <div class="patient-cards">
     <% @patients.each do |patient| %>
@@ -37,6 +37,20 @@
       </div>
     <% end %>
   </div>
+</div>
+
+ <script>
+    console.log("Patients index page loaded");
+    document.addEventListener("DOMContentLoaded", function() {
+      console.log("DOM fully loaded");
+      const patientLinks = document.querySelectorAll('.patient-select-button');
+      patientLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          console.log("Patient link clicked:", this.href);
+        });
+      });
+    });
+  </script>
 </div>
 
 <div class="back-button-container">

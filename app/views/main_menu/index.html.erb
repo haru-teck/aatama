@@ -1,44 +1,66 @@
-<div class="container">
-  <h1 class="page-title">患者一覧</h1>
-  
-  <div class="add-patient-button-container">
-    <%= link_to new_patient_path, class: 'add-patient-button', title: '新規患者登録' do %>
-      <%= image_tag 'yu-za-tuikayou.png', alt: '新規患者追加', class: 'icon-small' %>
-      <span>新規患者追加</span>
-    <% end %>
-  </div>
-
-  <div class="search-container" data-controller="patient-search">
-    <input type="text" data-patient-search-target="input" placeholder="フリガナで検索" data-action="input->patient-search#search">
-    <ul data-patient-search-target="results"></ul>
-  </div>
-
-  <div class="patient-cards">
-    <% @patients.each do |patient| %>
-      <div class="patient-card <%= patient_gender_class(patient) %>">
-        <%= link_to main_menu_path(patient_id: patient.id), class: "patient-select-button" do %>
-          <h2 class="patient-name"><%= patient.name %></h2>
-          <p class="patient-furigana"><%= patient.furigana %></p>
-        <% end %>
-        <p class="patient-info"><strong>生年月日:</strong> <%= patient.birthday.strftime("%Y年%-m月%-d日") if patient.birthday %></p>
-        <p class="patient-info"><strong>年齢:</strong> 
-          <% if patient.age_with_months %>
-            <%= patient.age_with_months[0] %>歳<%= patient.age_with_months[1] %>か月
-          <% else %>
-            不明
-          <% end %>
-        </p>
-        <p class="patient-info"><strong>性別:</strong> <%= patient.gender || '未設定' %></p>
-        <div class="patient-actions">
-          <%= link_to '詳細', patient_path(patient), class: 'btn btn-primary' %>
-          <%= link_to '編集', edit_patient_path(patient), class: 'edit-button btn btn-secondary' %>
-          <%= button_to '削除', patient_path(patient), method: :delete, data: { confirm: '本当に削除してもよろしいですか？' }, class: 'delete-button btn btn-danger' %>
-        </div>
+<div class="content-wrapper">
+  <% if @selected_patient %>
+    <div class="patient-info-container">
+      <h1 class="patient-name"><%= @selected_patient.name %> さん</h1>
+      <div class="patient-details">
+        <p>生年月日: <%= @selected_patient.birthday.strftime("%Y年%m月%d日") %></p>
+        <% age, months = @selected_patient.age_with_months %>
+        <p>年齢: <%= age %>歳 <%= months %>ヶ月</p>
       </div>
-    <% end %>
-  </div>
-</div>
+    </div>
 
-<div class="back-button-container">
-  <%= link_to 'メインメニューに戻る', root_path, class: 'btn btn-secondary back-button' %>
+    <div class="icon-container">
+      <%= link_to image_tag('newennpiru.png', class: 'icon-small'), new_patient_condition_path(@selected_patient), class: 'icon-link', title: '新しい体調記録を追加' %>
+    </div>
+
+    <% if @conditions.any? %>
+      <div class="records-container">
+        <% @conditions.each do |condition| %>
+          <div class="record-card">
+            <div class="record-header">
+              <div class="record-date"><%= condition.input_day.strftime("%Y年%m月%d日 %H:%M") %></div>
+              <div class="record-temperature"><%= condition.temperature %>℃</div>
+            </div>
+            <div class="record-body">
+              <div class="record-item">
+                <span class="item-label">食欲:</span>
+                <span class="item-value"><%= condition.eat %></span>
+              </div>
+              <div class="record-item">
+                <span class="item-label">水分:</span>
+                <span class="item-value"><%= condition.moisture %></span>
+              </div>
+              <div class="record-item">
+                <span class="item-label">嘔吐:</span>
+                <span class="item-value"><%= condition.puke %></span>
+              </div>
+              <div class="record-item">
+                <span class="item-label">メモ:</span>
+                <span class="item-value"><%= truncate(condition.memo, length: 50) %></span>
+              </div>
+            </div>
+            <div class="record-images">
+              <% if condition.images.attached? %>
+                <% condition.images.each do |image| %>
+                  <%= image_tag image.variant(resize_to_limit: [50, 50]), class: 'record-image-thumbnail' %>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="record-footer">
+              <span class="record-recorder">記録者: <%= condition.recorder&.name %></span>
+              <div class="action-buttons">
+                <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-edit' %>
+                <%= button_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete', form_class: 'delete-form' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>体調記録がありません。新しい記録を追加してください。</p>
+    <% end %>
+  <% else %>
+    <p>患者が選択されていません。患者一覧から患者を選択してください。</p>
+    <%= link_to '患者一覧へ', patients_path, class: 'btn btn-primary' %>
+  <% end %>
 </div>

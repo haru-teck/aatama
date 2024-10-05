@@ -2,8 +2,11 @@ class PatientsController < ApplicationController
   before_action :set_patient, only: [:edit, :update, :destroy, :select]
   
   def index
-    @patients = Patient.all
-    @patient = Patient.new
+    if params[:query].present?
+      @patients = Patient.where("name LIKE ? OR furigana LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    else
+      @patients = Patient.all
+    end
   end
 
   def new
