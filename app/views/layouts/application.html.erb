@@ -6,27 +6,43 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  
   <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag 'patients', media: 'all', 'data-turbolinks-track': 'reload' if controller_name == 'patients' %>
   <%= stylesheet_link_tag 'conditions', media: 'all', 'data-turbolinks-track': 'reload' if controller_name == 'conditions' %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   <%= stylesheet_link_tag 'conditions', media: 'all', 'data-turbolinks-track': 'reload' if controller_name == 'conditions' %>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <nav>
-    <div class="title">おねつ</div>
-    <ul>
-      <li><%= link_to image_tag('ho-mubotann.png', alt: 'ホームアイコン', class: 'nav-icon'), main_menu_path %></li>
-      <li><%= link_to image_tag('yu-za-.png', alt: '患者一覧アイコン', class: 'nav-icon'), patients_path %></li>
-      <li><%= link_to image_tag('settei.png', alt: '設定アイコン', class: 'nav-icon'), settings_path %></li>
-      <li><%= link_to image_tag('kautte.png', alt: '体調管理一覧アイコン', class: 'nav-icon'), conditions_path %></li>
-    </ul>
-  </nav>
+  <header>
+    <div class="header-container">
+      <div class="title">おねつ</div>
+      <% if user_signed_in? %>
+        <div class="user-info">
+          <span class="username">現在のログイン者: <%= current_user.name %></span>
+        </div>
+      <% end %>
+      <nav>
+        <ul class="nav-icons">
+          <li><%= link_to image_tag('ho-mubotann.png', alt: 'ホームアイコン', class: 'nav-icon'), main_menu_path %></li>
+          <li><%= link_to image_tag('yu-za-.png', alt: '患者一覧アイコン', class: 'nav-icon'), patients_path %></li>
+          <li><%= link_to image_tag('settei.png', alt: '設定アイコン', class: 'nav-icon'), settings_path %></li>
+          <li><%= link_to image_tag('kautte.png', alt: '体調管理一覧アイコン', class: 'nav-icon'), conditions_path %></li>
+          <% if user_signed_in? %>
+            <li>
+              <%= button_to destroy_user_session_path, method: :delete, class: 'logout-button' do %>
+                <%= image_tag('iogout.png', alt: 'ログアウト', class: 'nav-icon') %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-  <%= yield %>
+  <main>
+    <%= yield %>
+  </main>
 
   <footer>
     <p>by haru-teck</p>
