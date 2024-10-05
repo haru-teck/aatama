@@ -35,6 +35,5 @@ Rails.application.routes.draw do
   put '/rails/active_storage/disk/:encoded_token', to: 'active_storage/disk#update'
   post '/rails/active_storage/direct_uploads', to: 'active_storage/direct_uploads#create'
 
-  # 未マッチのルート（すべてのHTTPメソッドに対応）
-  match '*unmatched_route', to: 'application#route_not_found', via: :all
+ 
 end

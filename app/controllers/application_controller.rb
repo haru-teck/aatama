@@ -22,8 +22,5 @@ class ApplicationController < ActionController::Base
     @current_patient ||= current_user.patients.find_by(id: session[:selected_patient_id]) if session[:selected_patient_id]
   end
 
-  # 404エラー処理用のメソッドを追加
-  def route_not_found
-    render file: Rails.public_path.join('404.html'), status: :not_found, layout: false
-  end
+  
 end
