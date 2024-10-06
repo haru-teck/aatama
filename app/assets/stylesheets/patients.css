@@ -1,3 +1,4 @@
+/* 全体のスタイル */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -10,6 +11,7 @@
   margin-bottom: 30px;
 }
 
+/* 新規患者追加ボタン */
 .add-patient-button-container {
   margin-bottom: 30px;
 }
@@ -40,6 +42,7 @@
   filter: brightness(0) invert(1);
 }
 
+/* 患者カードのスタイル */
 .patient-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -50,8 +53,11 @@
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 15px;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .patient-card:hover {
@@ -92,30 +98,45 @@
 
 .patient-info {
   margin-bottom: 10px;
+  flex-grow: 1;
 }
 
+/* ボタンのスタイル */
 .patient-actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .btn {
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 4px;
   text-decoration: none;
   transition: background-color 0.3s ease;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
   color: white;
+  margin: 2px;
+  white-space: nowrap;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
 }
 
 .btn-secondary {
-  background-color: #007bff;  /* 青色に変更 */
+  background-color: #6c757d;
 }
 
 .btn-secondary:hover {
-  background-color: #0056b3;
+  background-color: #545b62;
 }
 
 .btn-danger {
@@ -126,44 +147,6 @@
   background-color: #c82333;
 }
 
-@media (max-width: 1024px) {
-  .patient-cards {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .patient-cards {
-    grid-template-columns: 1fr;
-  }
-
-  .patient-card {
-    padding: 15px;
-  }
-
-  .patient-name {
-    font-size: 1.3em;
-  }
-}
-
-@media (max-width: 480px) {
-  .patient-card {
-    padding: 10px;
-  }
-
-  .patient-name {
-    font-size: 1.2em;
-  }
-
-  .patient-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .patient-actions .btn {
-    width: 100%;
-  }
-}
 /* 患者詳細ページのスタイル */
 .patient-detail-card {
   background-color: #ffffff;
@@ -211,18 +194,75 @@
   color: #212529;
 }
 
-.patient-detail-card .patient-actions {
-  justify-content: center;
-  gap: 20px;
+/* フォームのスタイル */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.patient-detail-card .btn {
-  padding: 10px 20px;
-  font-size: 16px;
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.form-text {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.form-actions {
+  margin-top: 20px;
+  text-align: center;
 }
 
 /* レスポンシブデザイン */
+@media (max-width: 1024px) {
+  .patient-cards {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  .patient-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .patient-card {
+    padding: 15px;
+  }
+
+  .patient-name {
+    font-size: 1.3em;
+  }
+
+  .patient-actions,
+  .patient-detail-card .patient-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .patient-actions .btn,
+  .patient-detail-card .btn {
+    flex: 1 0 auto;
+    min-width: 100px;
+  }
+
   .patient-detail-card {
     padding: 20px;
   }
@@ -242,19 +282,61 @@
 }
 
 @media (max-width: 480px) {
-  .patient-detail-card {
-    padding: 15px;
+  .patient-card {
+    padding: 10px;
   }
 
-  .patient-detail-card .patient-name {
-    font-size: 1.5em;
+  .patient-name {
+    font-size: 1.1em;
+    margin-bottom: 10px;
   }
 
-  .patient-detail-card .patient-actions {
+  .patient-info {
+    font-size: 0.9em;
+  }
+
+  .patient-actions {
     flex-direction: column;
   }
 
+  .patient-actions .btn,
   .patient-detail-card .btn {
     width: 100%;
+    margin: 2px 0;
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .add-patient-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .add-patient-button .icon-small {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  .page-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  .form-container {
+    padding: 15px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .form-control {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .form-text {
+    font-size: 11px;
   }
 }

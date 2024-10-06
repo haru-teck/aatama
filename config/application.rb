@@ -15,7 +15,8 @@ module Aatama
     config.time_zone = 'Tokyo'
     config.active_storage.variant_processor = :mini_magick
     config.active_record.schema_format = :sql
-   
+    config.action_view.form_with_generates_remote_forms = false
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

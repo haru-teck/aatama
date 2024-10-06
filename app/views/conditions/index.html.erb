@@ -18,7 +18,7 @@
           <p class="recorder">記録者: <%= condition.recorder&.name || '不明' %></p>
           <div class="condition-actions">
             <%= link_to '編集', edit_condition_path(condition), class: 'btn btn-edit' %>
-            <%= link_to '削除', condition_path(condition), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-delete' %>
+            <%= link_to '削除', condition_path(condition), method: :delete, data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: 'btn btn-delete' %>
           </div>
         </div>
       </div>
