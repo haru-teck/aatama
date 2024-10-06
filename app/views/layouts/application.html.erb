@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>番長のケアノート</title>
+  <title>体調番長</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -19,14 +19,17 @@
 </head>
 <body>
   <nav>
-    <div class="title">おねつ</div>
-    <ul>
-      <li><%= link_to image_tag('ho-mubotann.png', alt: 'ホームアイコン', class: 'nav-icon'), main_menu_path %></li>
-      <li><%= link_to image_tag('yu-za-.png', alt: '患者一覧アイコン', class: 'nav-icon'), patients_path %></li>
-      <li><%= link_to image_tag('settei.png', alt: '設定アイコン', class: 'nav-icon'), settings_path %></li>
-      <li><%= link_to image_tag('kautte.png', alt: '体調管理一覧アイコン', class: 'nav-icon'), conditions_path %></li>
-    </ul>
-   </nav>
+  <div class="title">体調番長</div>
+  <% if user_signed_in? %>
+    <div class="user-info"><%= current_user.name %>さんがログイン中です</div>
+  <% end %>
+  <ul>
+    <li><%= link_to image_tag('ho-mubotann.png', alt: 'ホームアイコン', class: 'nav-icon'), main_menu_path %></li>
+    <li><%= link_to image_tag('yu-za-.png', alt: '患者一覧アイコン', class: 'nav-icon'), patients_path %></li>
+    <li><%= link_to image_tag('settei.png', alt: '設定アイコン', class: 'nav-icon'), settings_path %></li>
+    <li><%= link_to image_tag('kautte.png', alt: '体調管理一覧アイコン', class: 'nav-icon'), conditions_path %></li>
+  </ul>
+</nav>
 
   <%= yield %>
 
